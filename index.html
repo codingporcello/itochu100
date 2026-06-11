@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>伊藤忠100股冒險計畫 Claude版本</title>
+<title>伊藤忠100株冒険計画 Claude版</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,13 +14,13 @@
   <section class="panel hero-panel">
     <div class="hero">
       <div class="hero-left">
-        <h1>伊藤忠100股<br>冒險計畫</h1>
-        <span class="claude-badge">⚜ Claude版本</span>
-        <p class="sub">每天一點點，慢慢累積自己的小寶箱。</p>
+        <h1>伊藤忠100株<br>冒険計画</h1>
+        <span class="claude-badge">⚜ Claude版</span>
+        <p class="sub">毎日すこしずつ、自分の宝箱を貯めていこう。</p>
         <div class="quest-main">
-          <b>📜 主線任務</b><br>
-          累積伊藤忠商事（8001）<span class="goal">100 股</span><br>
-          終極目標：成為「<span class="goal">傳說投資家</span>」
+          <b>📜 メインクエスト</b><br>
+          伊藤忠商事（8001）<span class="goal">100株</span>を集める<br>
+          最終目標：「<span class="goal">伝説の投資家</span>」になる
         </div>
       </div>
 
@@ -37,34 +37,40 @@
           <span class="flower" style="bottom:8px;left:20%">🌷</span>
           <span class="flower" style="bottom:16px;right:11%">🌼</span>
           <span class="flower" style="bottom:7px;right:22%">🌻</span>
-          <!-- 冒險者 -->
-          <svg class="avatar" id="avatarSvg" width="96" height="120" viewBox="0 0 96 120">
-            <!-- 影子 -->
+          <!-- 冒険者（ホゲータ風のかわいいワニ） -->
+          <svg class="avatar" id="avatarSvg" width="100" height="120" viewBox="0 0 96 120">
             <ellipse cx="48" cy="114" rx="30" ry="6" fill="#00000033"/>
-            <!-- 腳 -->
-            <rect x="34" y="96" width="10" height="16" rx="3" fill="#5b3a1e"/>
-            <rect x="52" y="96" width="10" height="16" rx="3" fill="#5b3a1e"/>
-            <!-- 身體（鎧甲） -->
-            <rect x="28" y="62" width="40" height="38" rx="8" fill="#4d6fb8" stroke="#2c4170" stroke-width="3"/>
-            <rect x="40" y="62" width="16" height="38" fill="#ffd166" opacity=".85"/>
-            <!-- 手 -->
-            <rect x="18" y="66" width="10" height="24" rx="5" fill="#f0c9a0" stroke="#b88b5c" stroke-width="2"/>
-            <rect x="68" y="60" width="10" height="24" rx="5" fill="#f0c9a0" stroke="#b88b5c" stroke-width="2"/>
-            <!-- 劍 -->
-            <rect x="70" y="20" width="6" height="44" rx="3" fill="#cfd8e6" stroke="#8a97ad" stroke-width="2"/>
-            <rect x="63" y="58" width="20" height="6" rx="3" fill="#c79a2a"/>
-            <!-- 頭 -->
-            <circle cx="48" cy="40" r="22" fill="#f8d9b4" stroke="#c79e6e" stroke-width="2.5"/>
-            <!-- 頭髮 -->
-            <path d="M26 38 Q26 16 48 16 Q70 16 70 38 Q60 26 48 26 Q36 26 26 38Z" fill="#6e4a2a"/>
-            <!-- 眼睛 -->
-            <circle cx="41" cy="42" r="3" fill="#2b1d12"/>
-            <circle cx="56" cy="42" r="3" fill="#2b1d12"/>
-            <!-- 微笑 -->
-            <path d="M42 50 Q48 55 54 50" stroke="#2b1d12" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <!-- 腮紅 -->
-            <circle cx="35" cy="48" r="3" fill="#ff9e9e" opacity=".6"/>
-            <circle cx="61" cy="48" r="3" fill="#ff9e9e" opacity=".6"/>
+            <!-- 腕 -->
+            <ellipse cx="16" cy="76" rx="7" ry="10" fill="#e8564a" stroke="#a83228" stroke-width="2.5"/>
+            <ellipse cx="80" cy="76" rx="7" ry="10" fill="#e8564a" stroke="#a83228" stroke-width="2.5"/>
+            <!-- 体 -->
+            <path d="M48 18 Q78 18 80 52 Q82 86 70 100 Q60 110 48 110 Q36 110 26 100 Q14 86 16 52 Q18 18 48 18 Z"
+              fill="#e8564a" stroke="#a83228" stroke-width="3"/>
+            <!-- 足 -->
+            <ellipse cx="34" cy="107" rx="9" ry="6" fill="#d84838" stroke="#a83228" stroke-width="2.5"/>
+            <ellipse cx="62" cy="107" rx="9" ry="6" fill="#d84838" stroke="#a83228" stroke-width="2.5"/>
+            <!-- おなか -->
+            <ellipse cx="48" cy="89" rx="21" ry="15" fill="#f8e3c0"/>
+            <!-- 頭の炎（四角いもみあげ） -->
+            <rect x="40" y="5" width="16" height="16" rx="3" fill="#ffd34a" stroke="#c79a2a" stroke-width="2.5"/>
+            <rect x="44" y="9" width="8" height="8" rx="2" fill="#ffe9a0"/>
+            <!-- 目 -->
+            <ellipse cx="36" cy="48" rx="8" ry="10" fill="#fff"/>
+            <ellipse cx="60" cy="48" rx="8" ry="10" fill="#fff"/>
+            <circle cx="37" cy="50" r="3.5" fill="#2b1d12"/>
+            <circle cx="59" cy="50" r="3.5" fill="#2b1d12"/>
+            <circle cx="38.5" cy="48" r="1.3" fill="#fff"/>
+            <circle cx="60.5" cy="48" r="1.3" fill="#fff"/>
+            <!-- 鼻 -->
+            <circle cx="44" cy="63" r="1.6" fill="#a83228"/>
+            <circle cx="52" cy="63" r="1.6" fill="#a83228"/>
+            <!-- 口 -->
+            <path d="M33 69 Q48 80 63 69" stroke="#a83228" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <rect x="38" y="70" width="5" height="5" fill="#fff" transform="rotate(10 40.5 72.5)"/>
+            <rect x="53" y="70" width="5" height="5" fill="#fff" transform="rotate(-10 55.5 72.5)"/>
+            <!-- ほっぺ -->
+            <circle cx="26" cy="60" r="4" fill="#ff9e8e" opacity=".75"/>
+            <circle cx="70" cy="60" r="4" fill="#ff9e8e" opacity=".75"/>
           </svg>
           <!-- 寵物（小金幣史萊姆） -->
           <svg class="pet" width="56" height="56" viewBox="0 0 56 56">
@@ -76,23 +82,23 @@
           </svg>
         </div>
         <div class="daily">
-          <h3>⚔️ 每日任務</h3>
-          <label id="qLogin"><input type="checkbox" checked disabled> 登入冒險者頁面</label>
-          <label id="qPrice"><input type="checkbox" id="qPriceCb" disabled> 更新今日伊藤忠價格</label>
-          <label id="qCheck"><input type="checkbox" id="qCheckCb"> 查看 NPC 今日建議</label>
+          <h3>⚔️ デイリークエスト</h3>
+          <label id="qLogin"><input type="checkbox" checked disabled> 冒険者ページにログイン</label>
+          <label id="qPrice"><input type="checkbox" id="qPriceCb" disabled> 今日の伊藤忠株価を更新</label>
+          <label id="qCheck"><input type="checkbox" id="qCheckCb"> NPCの今日のアドバイスを確認</label>
         </div>
       </div>
 
       <div class="charcard panel" style="margin-bottom:0">
-        <div class="panel-title">角色資訊</div>
-        <div class="row"><span class="k">冒險者</span><span class="v">子綱</span></div>
+        <div class="panel-title">ステータス</div>
+        <div class="row"><span class="k">冒険者</span><span class="v">つなくん</span></div>
         <div class="row"><span class="k">LV</span><span class="v gold" id="cLv">0</span></div>
-        <div class="row"><span class="k">職業</span><span class="v">伊藤忠冒險家</span></div>
-        <div class="row"><span class="k">稱號</span><span class="v pink" id="cTitle">見習股東</span></div>
-        <div class="row"><span class="k">目前持股</span><span class="v blue" id="cShares">0 股</span></div>
-        <div class="row"><span class="k">下一里程碑</span><span class="v" id="cNext">25 股</span></div>
-        <div class="row"><span class="k">剩餘股數</span><span class="v" id="cRemain">25 股</span></div>
-        <div class="row"><span class="k">完成率</span><span class="v gold" id="cPct">0%</span></div>
+        <div class="row"><span class="k">職業</span><span class="v">伊藤忠冒険家</span></div>
+        <div class="row"><span class="k">称号</span><span class="v pink" id="cTitle">見習い株主</span></div>
+        <div class="row"><span class="k">保有株数</span><span class="v blue" id="cShares">0株</span></div>
+        <div class="row"><span class="k">次のマイルストーン</span><span class="v" id="cNext">25株</span></div>
+        <div class="row"><span class="k">残り株数</span><span class="v" id="cRemain">25株</span></div>
+        <div class="row"><span class="k">達成率</span><span class="v gold" id="cPct">0%</span></div>
         <div class="expwrap">
           <div class="explabel"><span>EXP</span><span id="expText">0 / 100</span></div>
           <div class="expbar"><div class="expfill" id="expFill"></div></div>
@@ -100,170 +106,167 @@
       </div>
     </div>
   </section>
-
   <!-- ============ 本月冒險狀況 ============ -->
   <section class="panel">
-    <div class="panel-title">🗺️ 本月冒險狀況</div>
+    <div class="panel-title">🗺️ 今月の冒険状況</div>
     <div class="setrow">
-      <span>今日價格（円）</span>
-      <input type="number" id="priceInput" step="0.5" min="0" placeholder="例：7250" style="width:120px">
-      <button class="gold small" onclick="updatePrice()">更新價格</button>
+      <span>本日の株価（円）</span>
+      <input type="number" inputmode="decimal" id="priceInput" step="0.5" min="0" placeholder="例：7250" style="width:120px">
+      <button class="gold small" onclick="updatePrice()">価格を更新</button>
       <span id="priceDate" style="font-size:11.5px"></span>
-      <span style="margin-left:auto">本月預算</span>
+      <span style="margin-left:auto">今月の予算</span>
       <span id="budgetDisplay" style="color:var(--yellow);font-size:15px">—</span>
-      <button class="small" onclick="openBudgetPanel()">⚙ 月預算設定</button>
+      <button class="small" onclick="openBudgetPanel()">⚙ 月予算設定</button>
     </div>
     <div class="statgrid">
-      <div class="stat"><div class="sk">目前價格</div><div class="sv gold" id="sPrice">—</div></div>
-      <div class="stat"><div class="sk">本月剩餘投資金額</div><div class="sv" id="sBudget">—</div></div>
-      <div class="stat"><div class="sk">總投入金額</div><div class="sv" id="sTotal">—</div></div>
-      <div class="stat"><div class="sk">平均成本</div><div class="sv" id="sAvg">—</div></div>
-      <div class="stat"><div class="sk">未實現損益</div><div class="sv" id="sPnl">—</div></div>
-      <div class="stat"><div class="sk">損益百分比</div><div class="sv" id="sPnlPct">—</div></div>
+      <div class="stat"><div class="sk">現在株価</div><div class="sv gold" id="sPrice">—</div></div>
+      <div class="stat"><div class="sk">今月の残り投資額</div><div class="sv" id="sBudget">—</div></div>
+      <div class="stat"><div class="sk">総投資額</div><div class="sv" id="sTotal">—</div></div>
+      <div class="stat"><div class="sk">平均取得単価</div><div class="sv" id="sAvg">—</div></div>
+      <div class="stat"><div class="sk">含み損益</div><div class="sv" id="sPnl">—</div></div>
+      <div class="stat"><div class="sk">損益率</div><div class="sv" id="sPnlPct">—</div></div>
     </div>
   </section>
-
-  <!-- ============ 月預算設定 ============ -->
-  <section class="panel collapsed" id="budgetPanel">
-    <div class="panel-title collap" onclick="toggleSection('budgetPanel')">💰 月預算設定<span class="caret">▼</span></div>
-    <div class="panel-body">
-      <div class="budget-summary">
-        <div class="bs-label" id="bsLabel">本月剩餘金額</div>
-        <div class="bs-amount" id="bsAmount">—</div>
-        <div class="bs-note" id="bsNote"></div>
-      </div>
-      <div class="logform">
-        <div class="field"><span>月份</span><input type="month" id="bMonth"></div>
-        <div class="field"><span>當月預算（円）</span><input type="number" id="bAmount" min="0" step="1000" placeholder="例：50000" style="width:130px"></div>
-        <div class="field"><span>備註</span><input type="text" id="bNote" placeholder="例：六月投入上限" style="width:170px"></div>
-        <button class="gold" onclick="registerBudget()">登錄預算</button>
-      </div>
-      <div class="setrow" style="margin-bottom:12px">
-        <span>未登錄月份的預設預算（円）</span>
-        <input type="number" id="defaultBudgetInput" step="1000" min="0" style="width:120px" onchange="updateDefaultBudget()">
-      </div>
-      <div style="overflow-x:auto">
-        <table>
-          <thead><tr><th>月份</th><th>預算金額</th><th>備註</th><th>操作</th></tr></thead>
-          <tbody id="budgetBody"></tbody>
-        </table>
-        <div class="empty" id="budgetEmpty">尚未登錄任何月份預算，所有月份使用預設預算。</div>
-      </div>
-      <div style="text-align:center;margin-top:16px">
-        <button class="small" onclick="toggleSection('budgetPanel')">▲ 收起月預算設定</button>
-      </div>
-    </div>
+  <!-- ============ NPC 建議 ============ -->
+  <section class="panel">
+    <div class="panel-title">💬 NPC 今日のアドバイス</div>
+    <div id="npcArea"></div>
   </section>
-
+  <!-- ============ 成就 ============ -->
+  <section class="panel">
+    <div class="panel-title">🏅 実績の殿堂</div>
+    <div class="achgrid" id="achGrid"></div>
+  </section>
   <!-- ============ 市場冒險軌跡 ============ -->
   <section class="panel" id="chartPanel">
-    <div class="panel-title collap" onclick="toggleSection('chartPanel')">📈 市場冒險軌跡<span class="caret">▼</span></div>
+    <div class="panel-title collap" onclick="toggleSection('chartPanel')">📈 市場冒険の軌跡<span class="caret">▼</span></div>
     <div class="panel-body">
-    <p class="chartdesc">記錄伊藤忠價格與你的買入足跡。</p>
+    <p class="chartdesc">伊藤忠の株価とあなたの買い足跡を記録。</p>
     <div class="setrow">
       <span>Alpha Vantage API Key</span>
       <input type="password" id="apiKeyInput" placeholder="未設定" style="width:170px" autocomplete="off">
-      <button class="gold small" onclick="saveApiKey()">儲存</button>
-      <button class="small" onclick="loadChart(true)">↻ 更新行情</button>
+      <button class="gold small" onclick="saveApiKey()">保存</button>
+      <button class="small" onclick="loadChart(true)">↻ 相場を更新</button>
       <span id="chartStatus" style="font-size:11.5px"></span>
     </div>
     <div class="rangebtns" id="rangeBtns">
-      <button class="small range" data-range="1m">1個月</button>
-      <button class="small range active" data-range="3m">3個月</button>
-      <button class="small range" data-range="6m">6個月</button>
+      <button class="small range" data-range="1m">1ヶ月</button>
+      <button class="small range active" data-range="3m">3ヶ月</button>
+      <button class="small range" data-range="6m">6ヶ月</button>
       <button class="small range" data-range="1y">1年</button>
     </div>
     <div class="chartframe">
       <div class="chartbox" id="chartBox">
-        <div class="chartmsg">行情載入中…</div>
+        <div class="chartmsg">相場を読み込み中…</div>
       </div>
     </div>
     <div style="text-align:center;margin-top:16px">
-      <button class="small" onclick="toggleSection('chartPanel')">▲ 收起市場冒險軌跡</button>
+      <button class="small" onclick="toggleSection('chartPanel')">▲ 市場冒険の軌跡をたたむ</button>
     </div>
     </div>
   </section>
-
-  <!-- ============ NPC 建議 ============ -->
-  <section class="panel">
-    <div class="panel-title">💬 NPC 今日建議</div>
-    <div id="npcArea"></div>
+  <!-- ============ 月預算設定 ============ -->
+  <section class="panel collapsed" id="budgetPanel">
+    <div class="panel-title collap" onclick="toggleSection('budgetPanel')">💰 月予算設定<span class="caret">▼</span></div>
+    <div class="panel-body">
+      <div class="budget-summary">
+        <div class="bs-label" id="bsLabel">今月の残り金額</div>
+        <div class="bs-amount" id="bsAmount">—</div>
+        <div class="bs-note" id="bsNote"></div>
+      </div>
+      <div class="logform">
+        <div class="field"><span>月</span><input type="month" id="bMonth"></div>
+        <div class="field"><span>当月予算（円）</span><input type="number" inputmode="decimal" id="bAmount" min="0" step="1000" placeholder="例：50000" style="width:130px"></div>
+        <div class="field"><span>メモ</span><input type="text" id="bNote" placeholder="例：6月の投資上限" style="width:170px"></div>
+        <button class="gold" onclick="registerBudget()">予算を登録</button>
+      </div>
+      <div class="setrow" style="margin-bottom:12px">
+        <span>未登録月のデフォルト予算（円）</span>
+        <input type="number" inputmode="decimal" id="defaultBudgetInput" step="1000" min="0" style="width:120px" onchange="updateDefaultBudget()">
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>月</th><th>予算額</th><th>メモ</th><th>操作</th></tr></thead>
+          <tbody id="budgetBody"></tbody>
+        </table>
+        <div class="empty" id="budgetEmpty">まだ月予算が登録されていません。全ての月にデフォルト予算が適用されます。</div>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <button class="small" onclick="toggleSection('budgetPanel')">▲ 月予算設定をたたむ</button>
+      </div>
+    </div>
   </section>
-
   <!-- ============ 冒險規則 ============ -->
-  <section class="panel">
-    <div class="panel-title">📖 冒險規則設定</div>
+  <section class="panel" id="rulesPanel">
+    <div class="panel-title collap" onclick="toggleSection('rulesPanel')">📖 冒険ルール設定<span class="caret">▼</span></div>
+    <div class="panel-body">
     <div class="rules">
       <div class="rule">
-        <h3>🟢 小買</h3>
-        <div class="frow"><span>跌幅達（%）</span><input type="number" id="rSmallDrop" step="0.1" min="0"></div>
-        <div class="frow"><span>最多買入（股）</span><input type="number" id="rSmallMax" step="1" min="1"></div>
+        <h3>🟢 小買い</h3>
+        <div class="frow"><span>下落率（%）</span><input type="number" inputmode="decimal" id="rSmallDrop" step="0.1" min="0"></div>
+        <div class="frow"><span>最大購入数（株）</span><input type="number" inputmode="decimal" id="rSmallMax" step="1" min="1"></div>
       </div>
       <div class="rule">
-        <h3>🟡 中買</h3>
-        <div class="frow"><span>跌幅達（%）</span><input type="number" id="rMidDrop" step="0.1" min="0"></div>
-        <div class="frow"><span>最多買入（股）</span><input type="number" id="rMidMax" step="1" min="1"></div>
+        <h3>🟡 中買い</h3>
+        <div class="frow"><span>下落率（%）</span><input type="number" inputmode="decimal" id="rMidDrop" step="0.1" min="0"></div>
+        <div class="frow"><span>最大購入数（株）</span><input type="number" inputmode="decimal" id="rMidMax" step="1" min="1"></div>
       </div>
       <div class="rule">
-        <h3>🔴 大買</h3>
-        <div class="frow"><span>跌幅達（%）</span><input type="number" id="rBigDrop" step="0.1" min="0"></div>
-        <div class="frow"><span>最多買入（股）</span><input type="number" id="rBigMax" step="1" min="1"></div>
+        <h3>🔴 大買い</h3>
+        <div class="frow"><span>下落率（%）</span><input type="number" inputmode="decimal" id="rBigDrop" step="0.1" min="0"></div>
+        <div class="frow"><span>最大購入数（株）</span><input type="number" inputmode="decimal" id="rBigMax" step="1" min="1"></div>
       </div>
     </div>
     <p style="margin-top:12px;font-size:12px;color:var(--text-dim);line-height:1.7">
-      跌幅以「現價相對平均成本」計算。系統會依照現價、平均成本與本月剩餘預算，由 NPC 給出今日建議。
+      下落率は「現在株価と平均取得単価の差」で計算。現在株価・平均単価・今月の残り予算をもとに、NPC が今日のアドバイスをくれます。
     </p>
+    <div style="text-align:center;margin-top:16px">
+      <button class="small" onclick="toggleSection('rulesPanel')">▲ 冒険ルール設定をたたむ</button>
+    </div>
+    </div>
   </section>
-
-  <!-- ============ 成就 ============ -->
-  <section class="panel">
-    <div class="panel-title">🏅 成就殿堂</div>
-    <div class="achgrid" id="achGrid"></div>
-  </section>
-
   <!-- ============ 冒險日誌 ============ -->
   <section class="panel">
-    <div class="panel-title">📕 冒險日誌</div>
+    <div class="panel-title">📕 冒険日誌</div>
     <div class="logform">
-      <div class="field"><span>日期</span><input type="date" id="fDate"></div>
-      <div class="field"><span>類型</span>
-        <select id="fType"><option value="buy">買入</option><option value="sell">賣出</option></select>
+      <div class="field"><span>日付</span><input type="date" id="fDate"></div>
+      <div class="field"><span>種別</span>
+        <select id="fType"><option value="buy">買い</option><option value="sell">売り</option></select>
       </div>
-      <div class="field"><span>股數</span><input type="number" id="fShares" min="1" step="1" style="width:90px" placeholder="1"></div>
-      <div class="field"><span>單價（円）</span><input type="number" id="fPrice" min="0" step="0.5" style="width:110px" placeholder="7250"></div>
-      <div class="field"><span>備註</span><input type="text" id="fNote" style="width:160px" placeholder="例：跌1.2%中買"></div>
-      <button class="gold" id="fSubmit" onclick="submitTrade()">＋ 記錄冒險</button>
-      <button class="small" id="fCancel" style="display:none" onclick="cancelEdit()">取消編輯</button>
+      <div class="field"><span>株数</span><input type="number" inputmode="decimal" id="fShares" min="1" step="1" style="width:90px" placeholder="1"></div>
+      <div class="field"><span>単価（円）</span><input type="number" inputmode="decimal" id="fPrice" min="0" step="0.5" style="width:110px" placeholder="7250"></div>
+      <div class="field"><span>メモ</span><input type="text" id="fNote" style="width:160px" placeholder="例：1.2%下落で中買い"></div>
+      <button class="gold" id="fSubmit" onclick="submitTrade()">＋ 冒険を記録</button>
+      <button class="small" id="fCancel" style="display:none" onclick="cancelEdit()">編集をキャンセル</button>
     </div>
     <div style="overflow-x:auto">
       <table>
-        <thead><tr><th>日期</th><th>類型</th><th>股數</th><th>單價</th><th>金額</th><th>備註</th><th></th></tr></thead>
+        <thead><tr><th>日付</th><th>種別</th><th>株数</th><th>単価</th><th>金額</th><th>メモ</th><th></th></tr></thead>
         <tbody id="logBody"></tbody>
       </table>
-      <div class="empty" id="logEmpty">尚無冒險紀錄。記下你的第一筆，旅程就開始了！</div>
+      <div class="empty" id="logEmpty">まだ冒険の記録がありません。最初の一株を記録すれば、旅が始まる！</div>
     </div>
   </section>
-
   <!-- ============ 100股達成預估 ============ -->
   <section class="panel">
-    <div class="panel-title">🔮 100股達成預估</div>
+    <div class="panel-title">🔮 100株達成シミュレーション</div>
     <div class="setrow">
-      <span>每股年股息（円）</span>
-      <input type="number" id="divInput" step="10" min="0" style="width:110px" onchange="updateDividend()">
-      <span style="font-size:11.5px">（伊藤忠近年約 200 円／股，可自行調整）</span>
+      <span>1株あたり年間配当（円）</span>
+      <input type="number" inputmode="decimal" id="divInput" step="10" min="0" style="width:110px" onchange="updateDividend()">
+      <span style="font-size:11.5px">（伊藤忠は近年 約200円／株。自由に調整OK）</span>
     </div>
     <div class="estgrid">
-      <div class="est"><div class="ek">以平均成本推估</div><div class="ev" id="eTotalCost">—</div><div class="en">100 股總投入成本</div></div>
-      <div class="est"><div class="ek">尚需投入</div><div class="ev" id="eRemainCost">—</div><div class="en">剩餘股數 × 平均成本</div></div>
-      <div class="est"><div class="ek">達成後年股息</div><div class="ev" id="eDividend">—</div><div class="en">100 股 × 每股股息</div></div>
-      <div class="est"><div class="ek">預估殖利率</div><div class="ev" id="eYield">—</div><div class="en">年股息 ÷ 推估總成本</div></div>
+      <div class="est"><div class="ek">平均単価から試算</div><div class="ev" id="eTotalCost">—</div><div class="en">100株の総投資額</div></div>
+      <div class="est"><div class="ek">あと必要な投資額</div><div class="ev" id="eRemainCost">—</div><div class="en">残り株数 × 平均単価</div></div>
+      <div class="est"><div class="ek">達成後の年間配当</div><div class="ev" id="eDividend">—</div><div class="en">100株 × 1株配当</div></div>
+      <div class="est"><div class="ek">想定利回り</div><div class="ev" id="eYield">—</div><div class="en">年間配当 ÷ 総投資額</div></div>
     </div>
     <p class="estnote">
-      ※ 以上為依目前平均成本與設定股息的粗略推估，僅供冒險路上的參考。寶箱要一格一格慢慢裝滿。
+      ※ 現在の平均単価と設定配当によるざっくり試算です。冒険の参考までに。宝箱は一マスずつ、ゆっくり満たそう。
     </p>
   </section>
 
-  <footer>伊藤忠100股冒險計畫 — 不是看盤軟體，是你的 RPG 角色頁面。⚔️</footer>
+  <footer>伊藤忠100株冒険計画 — チャートソフトじゃない、あなたのRPGステータス画面。⚔️</footer>
   <div class="scene-credit" id="sceneCredit"></div>
 </div>
 
@@ -280,7 +283,7 @@ const DEFAULTS = {
   apiKey: "",            // Alpha Vantage API Key（使用者自行設定）
   monthlyBudget: 30000,  // 未個別設定月份時的預設預算
   budgets: {},           // 各月預算 {"2026-06": {amount:15000, note:"六月預算"}}
-  ui: {budgetOpen:false, chartOpen:true},
+  ui: {budgetOpen:false, chartOpen:true, rulesOpen:true},
   dividendPerShare: 200,
   rules: {
     small: {drop:0.3, max:1},
@@ -293,8 +296,8 @@ let S = load();
 
 /* 初始交易紀錄：只在「從未初始化過、且日誌完全為空」時灌入一次 */
 const SEED_TRADES = [
-  {date:"2026-05-26", price:1920, shares:10, memo:"初始建倉"},
-  {date:"2026-05-27", price:1918, shares:10, memo:"加碼"},
+  {date:"2026-05-26", price:1920, shares:10, memo:"初回購入"},
+  {date:"2026-05-27", price:1918, shares:10, memo:"買い増し"},
   {date:"2026-06-04", price:1850, shares:1,  memo:"NISA"},
   {date:"2026-06-08", price:1850, shares:1,  memo:"NISA"},
   {date:"2026-06-08", price:1835, shares:1,  memo:"NISA"},
@@ -359,19 +362,19 @@ function portfolio(){
 }
 
 const TITLES = [
-  [100,"傳說投資家"],[75,"伊藤忠騎士"],[50,"配息獵人"],[25,"穩健投資家"],[0,"見習股東"]
+  [100,"伝説の投資家"],[75,"伊藤忠ナイト"],[50,"配当ハンター"],[25,"堅実投資家"],[0,"見習い株主"]
 ];
-function titleOf(sh){ for(const [t,n] of TITLES) if(sh>=t) return n; return "見習股東"; }
+function titleOf(sh){ for(const [t,n] of TITLES) if(sh>=t) return n; return "見習い株主"; }
 function nextMilestone(sh){
   for(const m of [25,50,75,100]) if(sh < m) return m;
   return null;
 }
 
 const ACHIEVEMENTS = [
-  {th:25,  name:"見習股東",   icon:"🥉"},
-  {th:50,  name:"穩健投資家", icon:"🥈"},
-  {th:75,  name:"配息獵人",   icon:"🥇"},
-  {th:100, name:"伊藤忠騎士", icon:"👑"}
+  {th:25,  name:"見習い株主", icon:"🥉"},
+  {th:50,  name:"堅実投資家", icon:"🥈"},
+  {th:75,  name:"配当ハンター", icon:"🥇"},
+  {th:100, name:"伊藤忠ナイト", icon:"👑"}
 ];
 
 /* ================= 畫面渲染 ================= */
@@ -384,10 +387,10 @@ function render(){
   document.getElementById("stageLv").textContent = sh >= 100 ? "LV MAX" : "LV " + lv;
   document.getElementById("cLv").textContent = sh >= 100 ? "MAX" : lv;
   document.getElementById("cTitle").textContent = titleOf(sh);
-  document.getElementById("cShares").textContent = sh + " 股";
+  document.getElementById("cShares").textContent = sh + "株";
   const next = nextMilestone(sh);
-  document.getElementById("cNext").textContent = next ? next + " 股" : "已達成 🎉";
-  document.getElementById("cRemain").textContent = next ? (next - sh) + " 股" : "0 股";
+  document.getElementById("cNext").textContent = next ? next + "株" : "達成！🎉";
+  document.getElementById("cRemain").textContent = next ? (next - sh) + "株" : "0株";
   const pct = Math.min(sh, 100);
   document.getElementById("cPct").textContent = pct + "%";
   document.getElementById("expText").textContent = Math.min(sh,100) + " / 100";
@@ -395,13 +398,13 @@ function render(){
 
   // --- 本月冒險狀況 ---
   document.getElementById("sPrice").textContent = S.price ? yen(S.price) : "—";
-  document.getElementById("priceDate").textContent = S.priceDate ? `（${S.priceDate} 更新）` : "（尚未更新）";
+  document.getElementById("priceDate").textContent = S.priceDate ? `（${S.priceDate} 更新）` : "（未更新）";
   const ym = today().slice(0,7);
   const curBudget = budgetOf(ym);
   const remainBudget = curBudget - p.monthSpent;
   document.getElementById("sBudget").textContent = yen(remainBudget);
   document.getElementById("budgetDisplay").textContent =
-    yen(curBudget) + (S.budgets[ym] ? "" : "（預設）");
+    yen(curBudget) + (S.budgets[ym] ? "" : "（デフォルト）");
   document.getElementById("sTotal").textContent = yen(p.cost);
   document.getElementById("sAvg").textContent = p.avg ? yen(p.avg) : "—";
   const pnlEl = document.getElementById("sPnl");
@@ -445,12 +448,12 @@ function ymLabel(ym){
   return `${y}年${parseInt(m,10)}月`;
 }
 function renderBudget(p, ym, curBudget, remainBudget){
-  document.getElementById("bsLabel").textContent = `本月剩餘金額（${ymLabel(ym)}）`;
+  document.getElementById("bsLabel").textContent = `今月の残り金額（${ymLabel(ym)}）`;
   const amt = document.getElementById("bsAmount");
   amt.textContent = yen(remainBudget);
   amt.className = "bs-amount " + (remainBudget >= 0 ? "pos" : "neg");
   document.getElementById("bsNote").textContent =
-    `本月預算 ${yen(curBudget)}${S.budgets[ym] ? "" : "（未登錄，使用預設）"}，已買進 ${yen(p.monthSpent)}。`;
+    `今月の予算 ${yen(curBudget)}${S.budgets[ym] ? "" : "（未登録・デフォルト適用）"}、買付済み ${yen(p.monthSpent)}。`;
 
   const months = Object.keys(S.budgets).sort().reverse();
   document.getElementById("budgetEmpty").style.display = months.length ? "none" : "block";
@@ -468,11 +471,11 @@ function registerBudget(){
   const m = document.getElementById("bMonth").value;
   const amount = parseFloat(document.getElementById("bAmount").value);
   const note = document.getElementById("bNote").value.trim();
-  if(!m || !(amount >= 0)){ toast("請選擇月份並填寫預算金額"); return; }
+  if(!m || !(amount >= 0)){ toast("月と予算額を入力してください"); return; }
   S.budgets[m] = {amount, note};
   document.getElementById("bAmount").value = "";
   document.getElementById("bNote").value = "";
-  save(); render(); toast(`${ymLabel(m)} 預算已登錄 💰`);
+  save(); render(); toast(`${ymLabel(m)}の予算を登録しました 💰`);
 }
 function editBudget(m){
   document.getElementById("bMonth").value = m;
@@ -481,9 +484,9 @@ function editBudget(m){
   document.getElementById("bMonth").scrollIntoView({behavior:"smooth", block:"center"});
 }
 function deleteBudget(m){
-  if(!confirm(`確定要刪除 ${ymLabel(m)} 的預算嗎？該月將改用預設預算。`)) return;
+  if(!confirm(`${ymLabel(m)}の予算を削除しますか？その月はデフォルト予算が適用されます。`)) return;
   delete S.budgets[m];
-  save(); render(); toast("已刪除 🗑️");
+  save(); render(); toast("削除しました 🗑️");
 }
 function updateDefaultBudget(){
   const v = parseFloat(document.getElementById("defaultBudgetInput").value);
@@ -491,7 +494,7 @@ function updateDefaultBudget(){
 }
 
 /* ---- 面板收合 ---- */
-const SECTION_KEYS = {budgetPanel:"budgetOpen", chartPanel:"chartOpen"};
+const SECTION_KEYS = {budgetPanel:"budgetOpen", chartPanel:"chartOpen", rulesPanel:"rulesOpen"};
 function applySection(id){
   const open = S.ui[SECTION_KEYS[id]];
   document.getElementById(id).classList.toggle("collapsed", !open);
@@ -516,49 +519,49 @@ function npcHtml(face, who, say, cls){
 function renderNpc(p, remainBudget){
   const area = document.getElementById("npcArea");
   const next = nextMilestone(p.shares);
-  const milestoneMsg = next ? `距離下一個里程碑只差 <b>${next - p.shares} 股</b>。` : `你已經是<b>傳說投資家</b>了！`;
+  const milestoneMsg = next ? `次のマイルストーンまであと<b>${next - p.shares}株</b>。` : `もう<b>伝説の投資家</b>だ！`;
 
   if(p.shares >= 100){
     area.innerHTML = npcHtml("👑","村長",
-      "你做到了，傳說投資家！100 股的寶箱已經裝滿。接下來，就讓股息替你冒險吧。","buy");
+      "やったね、伝説の投資家！100株の宝箱がいっぱいだ。これからは配当に冒険を任せよう。","buy");
     return;
   }
   if(!S.price){
     area.innerHTML = npcHtml("🧓","村長",
-      "今天先別急著出發。先到上方更新今日伊藤忠的價格，我才能給你建議。","wait");
+      "今日はまだ出発するな。まず上で今日の伊藤忠株価を更新してくれ。そうすればアドバイスできるぞ。","wait");
     return;
   }
   if(p.avg == null){
-    area.innerHTML = npcHtml("🍄","菇菇商人",
-      `冒險才正要開始呢！記下你的第一筆買入，建立平均成本後，我每天都會給你建議。${milestoneMsg}`,"buy");
+    area.innerHTML = npcHtml("🍄","キノコ商人",
+      `冒険はこれからだ！最初の買付を記録して平均単価ができたら、毎日アドバイスするよ。${milestoneMsg}`,"buy");
     return;
   }
 
   const dropPct = (p.avg - S.price) / p.avg * 100; // 正值 = 比均價便宜
   const r = S.rules;
   let tier = null;
-  if(dropPct >= r.big.drop)        tier = {name:"大買", max:r.big.max,  face:"🍄", who:"菇菇商人"};
-  else if(dropPct >= r.mid.drop)   tier = {name:"中買", max:r.mid.max,  face:"🍄", who:"菇菇商人"};
-  else if(dropPct >= r.small.drop) tier = {name:"小買", max:r.small.max,face:"🍄", who:"菇菇商人"};
+  if(dropPct >= r.big.drop)        tier = {name:"大買い", max:r.big.max,  face:"🍄", who:"キノコ商人"};
+  else if(dropPct >= r.mid.drop)   tier = {name:"中買い", max:r.mid.max,  face:"🍄", who:"キノコ商人"};
+  else if(dropPct >= r.small.drop) tier = {name:"小買い", max:r.small.max,face:"🍄", who:"キノコ商人"};
 
   let html = "";
   if(!tier){
     if(dropPct < 0){
-      html += npcHtml("🐗","肥肥商人",
-        `目前價格 <b>${yen(S.price)}</b>，比你的平均成本高 <b>${Math.abs(dropPct).toFixed(2)}%</b>。建議觀望，把預算留給更好的時機。${milestoneMsg}`,"wait");
+      html += npcHtml("🐗","イノシシ商人",
+        `現在株価は<b>${yen(S.price)}</b>、平均単価より<b>${Math.abs(dropPct).toFixed(2)}%</b>高い。今日は様子見だ。予算はもっと良いタイミングに取っておこう。${milestoneMsg}`,"wait");
     }else{
-      html += npcHtml("🐗","肥肥商人",
-        `價格 <b>${yen(S.price)}</b> 和你的平均成本差不多（便宜 ${dropPct.toFixed(2)}%），還沒觸發任何買入規則。今天先觀望吧。${milestoneMsg}`,"wait");
+      html += npcHtml("🐗","イノシシ商人",
+        `株価<b>${yen(S.price)}</b>は平均単価とほぼ同じ（${dropPct.toFixed(2)}%安）。買いルールはまだ発動していない。今日は様子見だ。${milestoneMsg}`,"wait");
     }
   }else{
     const affordable = Math.floor(remainBudget / S.price);
     const suggest = Math.min(tier.max, Math.max(affordable, 0), next - p.shares > 0 ? 100 - p.shares : tier.max);
     if(suggest <= 0){
       html += npcHtml("🧓","村長",
-        `今天價格不錯（比均價便宜 <b>${dropPct.toFixed(2)}%</b>，觸發「${tier.name}」），可惜本月剩餘預算 <b>${yen(remainBudget)}</b> 不夠買 1 股了。下個月再出發吧！`,"wait");
+        `今日は良い値だ（平均単価より<b>${dropPct.toFixed(2)}%</b>安、「${tier.name}」発動）。だが今月の残り予算<b>${yen(remainBudget)}</b>では1株も買えない。来月また出発しよう！`,"wait");
     }else{
       html += npcHtml(tier.face, tier.who,
-        `今天價格不錯喔！<b>${yen(S.price)}</b> 比你的平均成本便宜 <b>${dropPct.toFixed(2)}%</b>，觸發「<b>${tier.name}</b>」規則。${milestoneMsg}<br>建議買入 <b>${suggest} 股</b>（約 ${yen(suggest*S.price)}，本月剩餘預算 ${yen(remainBudget)}）。`,"buy");
+        `今日は良い値だよ！<b>${yen(S.price)}</b>は平均単価より<b>${dropPct.toFixed(2)}%</b>安、「<b>${tier.name}</b>」ルール発動。${milestoneMsg}<br><b>${suggest}株</b>の買付をおすすめ（約 ${yen(suggest*S.price)}、今月の残り予算 ${yen(remainBudget)}）。`,"buy");
     }
   }
   area.innerHTML = html;
@@ -576,9 +579,9 @@ function renderAchievements(sh){
     return `<div class="ach ${unlocked?"unlocked":"locked"}">
       <span class="medal" style="${style}">${a.icon}</span>
       <div class="aname">${a.name}</div>
-      <div class="acond">${a.th} 股成就</div>
+      <div class="acond">${a.th}株達成で解放</div>
       <div class="achbar"><i style="width:${(prog*100).toFixed(1)}%"></i></div>
-      <span class="astate">${unlocked ? "解鎖済" : Math.floor(prog*100) + "%"}</span>
+      <span class="astate">${unlocked ? "解放済み" : Math.floor(prog*100) + "%"}</span>
     </div>`;
   }).join("");
 }
@@ -591,8 +594,8 @@ function renderLog(){
   document.getElementById("logEmpty").style.display = trades.length ? "none" : "block";
   body.innerHTML = trades.map(t=>`<tr>
     <td>${t.date}</td>
-    <td><span class="tag ${t.type}">${t.type==="buy"?"買入":"賣出"}</span></td>
-    <td>${t.shares} 股</td>
+    <td><span class="tag ${t.type}">${t.type==="buy"?"買い":"売り"}</span></td>
+    <td>${t.shares}株</td>
     <td>${yen(t.price)}</td>
     <td>${yen(t.shares*t.price)}</td>
     <td style="color:var(--text-dim)">${escapeHtml(t.note||"")}</td>
@@ -611,15 +614,15 @@ function submitTrade(){
   const price = parseFloat(document.getElementById("fPrice").value);
   const note = document.getElementById("fNote").value.trim();
   if(!date || !shares || shares <= 0 || !(price > 0)){
-    toast("請填寫日期、股數與單價"); return;
+    toast("日付・株数・単価を入力してください"); return;
   }
   if(editingId != null){
     const t = S.trades.find(t=>t.id===editingId);
     if(t) Object.assign(t, {date, type, shares, price, note});
     editingId = null;
-    document.getElementById("fSubmit").textContent = "＋ 記錄冒險";
+    document.getElementById("fSubmit").textContent = "＋ 冒険を記録";
     document.getElementById("fCancel").style.display = "none";
-    toast("日誌已更新 ✏️");
+    toast("記録を更新しました ✏️");
   }else{
     const before = portfolio().shares;
     S.trades.push({id: Date.now(), date, type, shares, price, note});
@@ -634,12 +637,12 @@ function checkLevelUp(before, after){
     const crossed = [25,50,75,100].find(m => before < m && after >= m);
     if(crossed){
       const name = ACHIEVEMENTS.find(a=>a.th===crossed).name;
-      toast(`🎉 成就解鎖：${name}（${crossed}股）！`);
+      toast(`🎉 実績解放：${name}（${crossed}株）！`);
     }else{
-      toast(`⚔️ LV UP！目前 LV ${Math.min(after,100)}`);
+      toast(`⚔️ LV UP！現在 LV ${Math.min(after,100)}`);
     }
   }else{
-    toast("已記錄到冒險日誌 📕");
+    toast("冒険日誌に記録しました 📕");
   }
 }
 function editTrade(id){
@@ -651,20 +654,20 @@ function editTrade(id){
   document.getElementById("fShares").value = t.shares;
   document.getElementById("fPrice").value = t.price;
   document.getElementById("fNote").value = t.note||"";
-  document.getElementById("fSubmit").textContent = "✔ 儲存修改";
+  document.getElementById("fSubmit").textContent = "✔ 変更を保存";
   document.getElementById("fCancel").style.display = "inline-block";
   document.getElementById("fDate").scrollIntoView({behavior:"smooth", block:"center"});
 }
 function cancelEdit(){
   editingId = null; clearForm();
-  document.getElementById("fSubmit").textContent = "＋ 記錄冒險";
+  document.getElementById("fSubmit").textContent = "＋ 冒険を記録";
   document.getElementById("fCancel").style.display = "none";
 }
 function deleteTrade(id){
-  if(!confirm("確定要刪除這筆冒險紀錄嗎？")) return;
+  if(!confirm("この冒険記録を削除しますか？")) return;
   S.trades = S.trades.filter(t=>t.id!==id);
   if(editingId === id) cancelEdit();
-  save(); render(); toast("已刪除 🗑️");
+  save(); render(); toast("削除しました 🗑️");
 }
 function clearForm(){
   document.getElementById("fDate").value = today();
@@ -707,16 +710,16 @@ function renderDaily(){
 }
 document.getElementById("qCheckCb").addEventListener("change", e=>{
   S.daily.check = e.target.checked; save(); renderDaily();
-  if(e.target.checked) toast("每日任務完成 ✅");
+  if(e.target.checked) toast("デイリークエスト完了 ✅");
 });
 
 /* ---- 設定更新 ---- */
 function updatePrice(){
   const v = parseFloat(document.getElementById("priceInput").value);
-  if(!(v > 0)){ toast("請輸入有效價格"); return; }
+  if(!(v > 0)){ toast("有効な価格を入力してください"); return; }
   S.price = v; S.priceDate = today();
   if(S.daily.date === today()) S.daily.price = true;
-  save(); render(); toast("今日價格已更新 🪙");
+  save(); render(); toast("本日の株価を更新しました 🪙");
 }
 function updateDividend(){
   const v = parseFloat(document.getElementById("divInput").value);
@@ -730,7 +733,7 @@ function updateDividend(){
     S.rules.mid.max    = parseInt(document.getElementById("rMidMax").value,10)||1;
     S.rules.big.drop   = parseFloat(document.getElementById("rBigDrop").value)||0;
     S.rules.big.max    = parseInt(document.getElementById("rBigMax").value,10)||1;
-    save(); render(); toast("冒險規則已更新 📖");
+    save(); render(); toast("冒険ルールを更新しました 📖");
   });
 });
 
@@ -743,7 +746,7 @@ let chartRange = "3m";
 function saveApiKey(){
   S.apiKey = document.getElementById("apiKeyInput").value.trim();
   save();
-  toast(S.apiKey ? "API Key 已儲存 🔑" : "已清除 API Key");
+  toast(S.apiKey ? "API Keyを保存しました 🔑" : "API Keyをクリアしました");
   loadChart(true);
 }
 
@@ -803,14 +806,14 @@ async function loadChart(force){
       const c = JSON.parse(localStorage.getItem(CHART_CACHE_KEY));
       if(c && c.fetchedAt === today() && Array.isArray(c.series) && c.series.length){
         chartSeries = c.series; chartSource = c.source;
-        setChartStatus(`行情來源：${c.source}（今日快取）`);
+        setChartStatus(`相場ソース：${c.source}（本日キャッシュ）`);
         drawChart();
         return;
       }
     }catch(e){}
   }
-  setChartMsg("行情載入中…");
-  setChartStatus(S.apiKey ? "行情載入中…" : "尚未設定行情 API Key，嘗試備援來源…");
+  setChartMsg("相場を読み込み中…");
+  setChartStatus(S.apiKey ? "相場を読み込み中…" : "API Key未設定、予備ソースを試します…");
 
   const sources = [];
   if(S.apiKey) sources.push(["Alpha Vantage", ()=>fetchAlphaVantage(S.apiKey)]);
@@ -821,28 +824,28 @@ async function loadChart(force){
       const series = await fn();
       chartSeries = series; chartSource = name;
       localStorage.setItem(CHART_CACHE_KEY, JSON.stringify({fetchedAt: today(), source: name, series}));
-      setChartStatus(`行情來源：${name}（${today()} 更新）` + (S.apiKey ? "" : "｜尚未設定行情 API Key"));
+      setChartStatus(`相場ソース：${name}（${today()} 更新）` + (S.apiKey ? "" : "｜API Key未設定"));
       drawChart();
       return;
     }catch(e){ /* 換下一個來源 */ }
   }
   // 全部失敗 → 手動價格模式
   chartSeries = null; chartSource = null;
-  setChartStatus(S.apiKey ? "行情資料暫時無法取得" : "尚未設定行情 API Key");
-  setChartMsg("⚠️ 行情資料暫時無法取得，已使用手動價格模式。<br>請在上方「本月冒險狀況」手動輸入今日價格，冒險照常進行。");
+  setChartStatus(S.apiKey ? "相場データを取得できません" : "相場API Keyが未設定です");
+  setChartMsg("⚠️ 相場データを取得できないため、手動価格モードに切り替えました。<br>上の「今月の冒険状況」で本日の株価を入力すれば、冒険はそのまま続行できます。");
 }
 
 function drawChart(){
   const box = document.getElementById("chartBox");
   if(!chartSeries || chartSeries.length < 2){
-    setChartMsg("行情資料不足，已使用手動價格模式。");
+    setChartMsg("相場データが不足しています。手動価格モードで進行中。");
     return;
   }
   const days = {"1m":31, "3m":92, "6m":183, "1y":366}[chartRange] || 92;
   const lastT = Date.parse(chartSeries[chartSeries.length-1].date);
   const cutoff = lastT - days*864e5;
   const pts = chartSeries.filter(p=>Date.parse(p.date) >= cutoff);
-  if(pts.length < 2){ setChartMsg("此區間行情資料不足。"); return; }
+  if(pts.length < 2){ setChartMsg("この期間の相場データが不足しています。"); return; }
 
   const t0 = Date.parse(pts[0].date), t1 = Date.parse(pts[pts.length-1].date);
   // 範圍內的買入點（標在實際買入價位）
@@ -882,14 +885,14 @@ function drawChart(){
   const gems = buys.map(b=>{
     const cx = x(Date.parse(b.date)), cy = y(b.price);
     return `<g>
-      <title>${b.date} 買入 ${b.shares} 股 @¥${b.price.toLocaleString()}${b.note ? "（"+escapeHtml(b.note)+"）" : ""}</title>
+      <title>${b.date} ${b.shares}株買い @¥${b.price.toLocaleString()}${b.note ? "（"+escapeHtml(b.note)+"）" : ""}</title>
       <rect x="${(cx-5).toFixed(1)}" y="${(cy-5).toFixed(1)}" width="10" height="10"
         fill="#ffd34a" stroke="#0a0e23" stroke-width="2" shape-rendering="crispEdges"/>
       <rect x="${(cx-3).toFixed(1)}" y="${(cy-3).toFixed(1)}" width="3" height="3" fill="#fff2c0"/>
     </g>`;
   }).join("");
 
-  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="伊藤忠商事 8001 價格趨勢">
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="伊藤忠商事 8001 株価チャート">
     <defs>
       <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#7ee84a" stop-opacity=".18"/>
@@ -901,7 +904,7 @@ function drawChart(){
     <polyline points="${lineStr}" fill="none" stroke="#7ee84a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
     ${gems}
     ${xlabels}
-    <text x="${W-R}" y="${T+2}" text-anchor="end" font-size="11" fill="#9aa6d8">伊藤忠商事 8001${chartSource ? "・"+chartSource : ""}　■ = 買入點</text>
+    <text x="${W-R}" y="${T+2}" text-anchor="end" font-size="11" fill="#9aa6d8">伊藤忠商事 8001${chartSource ? "・"+chartSource : ""}　■＝買いポイント</text>
   </svg>`;
 }
 
@@ -915,12 +918,12 @@ document.querySelectorAll("#rangeBtns .range").forEach(btn=>{
 
 /* ---- 每日場景（日本旅行照片輪換，Unsplash）---- */
 const SCENES = [
-  {id:"1480796927426-f609979314bd", name:"老舖商店街"},
-  {id:"1492571350019-22de08371fd3", name:"箱根 湖中鳥居"},
-  {id:"1545569341-9eb8b30979d9",   name:"京都 暮色八坂塔"},
-  {id:"1493976040374-85c8e12f0c0e", name:"京都 石坂小路"},
-  {id:"1542051841857-5f90071e7989", name:"澀谷 霓虹夜"},
-  {id:"1528360983277-13d401cdc186", name:"紅燈籠小巷"}
+  {id:"1480796927426-f609979314bd", name:"老舗商店街"},
+  {id:"1492571350019-22de08371fd3", name:"箱根・湖の鳥居"},
+  {id:"1545569341-9eb8b30979d9",   name:"京都・夕暮れの八坂の塔"},
+  {id:"1493976040374-85c8e12f0c0e", name:"京都・石畳の小路"},
+  {id:"1542051841857-5f90071e7989", name:"渋谷・ネオンの夜"},
+  {id:"1528360983277-13d401cdc186", name:"赤提灯の路地"}
 ];
 (function setDailyScene(){
   const d = new Date();
@@ -934,7 +937,7 @@ const SCENES = [
   };
   img.src = url;
   const credit = document.getElementById("sceneCredit");
-  if(credit) credit.textContent = `今日場景：${scene.name}（每日輪換・photo via Unsplash）`;
+  if(credit) credit.textContent = `今日のシーン：${scene.name}（毎日替わり・photo via Unsplash）`;
 })();
 
 /* ---- 初始化 ---- */
@@ -944,6 +947,7 @@ if(S.price) document.getElementById("priceInput").value = S.price;
 document.getElementById("apiKeyInput").value = S.apiKey || "";
 applySection("budgetPanel");
 applySection("chartPanel");
+applySection("rulesPanel");
 render();
 loadChart(false);
 </script>
