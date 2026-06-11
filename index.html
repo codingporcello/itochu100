@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊藤忠100股冒險計畫 Claude版本</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <section class="panel hero-panel">
+    <div class="hero">
+      <div class="hero-left">
+        <h1>伊藤忠100股<br>冒險計畫</h1>
+        <span class="claude-badge">⚜ Claude版本</span>
+        <p class="sub">每天一點點，慢慢累積自己的小寶箱。</p>
+        <div class="quest-main">
+          <b>📜 主線任務</b><br>
+          累積伊藤忠商事（8001）<span class="goal">100 股</span><br>
+          終極目標：成為「<span class="goal">傳說投資家</span>」
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="lvbadge" id="stageLv">LV 0</div>
+        <span class="sky-deco" style="top:14px;left:18%">☁️</span>
+        <span class="sky-deco" style="top:34px;right:14%;animation-delay:2s">☁️</span>
+        <span class="sky-deco" style="top:8px;right:34%;animation-delay:1s">🌤️</span>
+        <div class="chars">
+          <!-- 冒險者 -->
+          <svg class="avatar" id="avatarSvg" width="96" height="120" viewBox="0 0 96 120">
+            <!-- 影子 -->
+            <ellipse cx="48" cy="114" rx="30" ry="6" fill="#00000033"/>
+            <!-- 腳 -->
+            <rect x="34" y="96" width="10" height="16" rx="3" fill="#5b3a1e"/>
+            <rect x="52" y="96" width="10" height="16" rx="3" fill="#5b3a1e"/>
+            <!-- 身體（鎧甲） -->
+            <rect x="28" y="62" width="40" height="38" rx="8" fill="#4d6fb8" stroke="#2c4170" stroke-width="3"/>
+            <rect x="40" y="62" width="16" height="38" fill="#ffd166" opacity=".85"/>
+            <!-- 手 -->
+            <rect x="18" y="66" width="10" height="24" rx="5" fill="#f0c9a0" stroke="#b88b5c" stroke-width="2"/>
+            <rect x="68" y="60" width="10" height="24" rx="5" fill="#f0c9a0" stroke="#b88b5c" stroke-width="2"/>
+            <!-- 劍 -->
+            <rect x="70" y="20" width="6" height="44" rx="3" fill="#cfd8e6" stroke="#8a97ad" stroke-width="2"/>
+            <rect x="63" y="58" width="20" height="6" rx="3" fill="#c79a2a"/>
+            <!-- 頭 -->
+            <circle cx="48" cy="40" r="22" fill="#f8d9b4" stroke="#c79e6e" stroke-width="2.5"/>
+            <!-- 頭髮 -->
+            <path d="M26 38 Q26 16 48 16 Q70 16 70 38 Q60 26 48 26 Q36 26 26 38Z" fill="#6e4a2a"/>
+            <!-- 眼睛 -->
+            <circle cx="41" cy="42" r="3" fill="#2b1d12"/>
+            <circle cx="56" cy="42" r="3" fill="#2b1d12"/>
+            <!-- 微笑 -->
+            <path d="M42 50 Q48 55 54 50" stroke="#2b1d12" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- 腮紅 -->
+            <circle cx="35" cy="48" r="3" fill="#ff9e9e" opacity=".6"/>
+            <circle cx="61" cy="48" r="3" fill="#ff9e9e" opacity=".6"/>
+          </svg>
+          <!-- 寵物（小金幣史萊姆） -->
+          <svg class="pet" width="56" height="56" viewBox="0 0 56 56">
+            <ellipse cx="28" cy="52" rx="17" ry="3.5" fill="#00000033"/>
+            <path d="M8 42 Q8 18 28 18 Q48 18 48 42 Q48 50 28 50 Q8 50 8 42Z" fill="#ffd166" stroke="#c79a2a" stroke-width="2.5"/>
+            <text x="28" y="42" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4731a">¥</text>
+            <circle cx="21" cy="32" r="2.5" fill="#5b3a1e"/>
+            <circle cx="35" cy="32" r="2.5" fill="#5b3a1e"/>
+          </svg>
+        </div>
+        <div class="daily">
+          <h3>⚔️ 每日任務</h3>
+          <label id="qLogin"><input type="checkbox" checked disabled> 登入冒險者頁面</label>
+          <label id="qPrice"><input type="checkbox" id="qPriceCb" disabled> 更新今日伊藤忠價格</label>
+          <label id="qCheck"><input type="checkbox" id="qCheckCb"> 查看 NPC 今日建議</label>
+        </div>
+      </div>
+
+      <div class="charcard panel" style="margin-bottom:0">
+        <div class="panel-title">角色資訊</div>
+        <div class="row"><span class="k">冒險者</span><span class="v">子綱</span></div>
+        <div class="row"><span class="k">LV</span><span class="v gold" id="cLv">0</span></div>
+        <div class="row"><span class="k">職業</span><span class="v">伊藤忠冒險家</span></div>
+        <div class="row"><span class="k">稱號</span><span class="v pink" id="cTitle">見習股東</span></div>
+        <div class="row"><span class="k">目前持股</span><span class="v blue" id="cShares">0 股</span></div>
+        <div class="row"><span class="k">下一里程碑</span><span class="v" id="cNext">25 股</span></div>
+        <div class="row"><span class="k">剩餘股數</span><span class="v" id="cRemain">25 股</span></div>
+        <div class="row"><span class="k">完成率</span><span class="v gold" id="cPct">0%</span></div>
+        <div class="expwrap">
+          <div class="explabel"><span>EXP</span><span id="expText">0 / 100</span></div>
+          <div class="expbar"><div class="expfill" id="expFill"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 本月冒險狀況 ============ -->
+  <section class="panel">
+    <div class="panel-title">🗺️ 本月冒險狀況</div>
+    <div class="setrow">
+      <span>今日價格（円）</span>
+      <input type="number" id="priceInput" step="0.5" min="0" placeholder="例：7250" style="width:120px">
+      <button class="gold small" onclick="updatePrice()">更新價格</button>
+      <span id="priceDate" style="font-size:11.5px"></span>
+      <span style="margin-left:auto">本月預算（円）</span>
+      <input type="number" id="budgetInput" step="1000" min="0" style="width:120px" onchange="updateBudget()">
+    </div>
+    <div class="statgrid">
+      <div class="stat"><div class="sk">目前價格</div><div class="sv gold" id="sPrice">—</div></div>
+      <div class="stat"><div class="sk">本月剩餘投資金額</div><div class="sv" id="sBudget">—</div></div>
+      <div class="stat"><div class="sk">總投入金額</div><div class="sv" id="sTotal">—</div></div>
+      <div class="stat"><div class="sk">平均成本</div><div class="sv" id="sAvg">—</div></div>
+      <div class="stat"><div class="sk">未實現損益</div><div class="sv" id="sPnl">—</div></div>
+      <div class="stat"><div class="sk">損益百分比</div><div class="sv" id="sPnlPct">—</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 市場冒險軌跡 ============ -->
+  <section class="panel">
+    <div class="panel-title">📈 市場冒險軌跡</div>
+    <p class="chartdesc">記錄伊藤忠價格與你的買入足跡。</p>
+    <div class="setrow">
+      <span>Alpha Vantage API Key</span>
+      <input type="password" id="apiKeyInput" placeholder="未設定" style="width:170px" autocomplete="off">
+      <button class="gold small" onclick="saveApiKey()">儲存</button>
+      <button class="small" onclick="loadChart(true)">↻ 更新行情</button>
+      <span id="chartStatus" style="font-size:11.5px"></span>
+    </div>
+    <div class="rangebtns" id="rangeBtns">
+      <button class="small range" data-range="1m">1個月</button>
+      <button class="small range active" data-range="3m">3個月</button>
+      <button class="small range" data-range="6m">6個月</button>
+      <button class="small range" data-range="1y">1年</button>
+    </div>
+    <div class="chartframe">
+      <div class="chartbox" id="chartBox">
+        <div class="chartmsg">行情載入中…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NPC 建議 ============ -->
+  <section class="panel">
+    <div class="panel-title">💬 NPC 今日建議</div>
+    <div id="npcArea"></div>
+  </section>
+
+  <!-- ============ 冒險規則 ============ -->
+  <section class="panel">
+    <div class="panel-title">📖 冒險規則設定</div>
+    <div class="rules">
+      <div class="rule">
+        <h3>🟢 小買</h3>
+        <div class="frow"><span>跌幅達（%）</span><input type="number" id="rSmallDrop" step="0.1" min="0"></div>
+        <div class="frow"><span>最多買入（股）</span><input type="number" id="rSmallMax" step="1" min="1"></div>
+      </div>
+      <div class="rule">
+        <h3>🟡 中買</h3>
+        <div class="frow"><span>跌幅達（%）</span><input type="number" id="rMidDrop" step="0.1" min="0"></div>
+        <div class="frow"><span>最多買入（股）</span><input type="number" id="rMidMax" step="1" min="1"></div>
+      </div>
+      <div class="rule">
+        <h3>🔴 大買</h3>
+        <div class="frow"><span>跌幅達（%）</span><input type="number" id="rBigDrop" step="0.1" min="0"></div>
+        <div class="frow"><span>最多買入（股）</span><input type="number" id="rBigMax" step="1" min="1"></div>
+      </div>
+    </div>
+    <p style="margin-top:12px;font-size:12px;color:var(--text-dim);line-height:1.7">
+      跌幅以「現價相對平均成本」計算。系統會依照現價、平均成本與本月剩餘預算，由 NPC 給出今日建議。
+    </p>
+  </section>
+
+  <!-- ============ 成就 ============ -->
+  <section class="panel">
+    <div class="panel-title">🏅 成就殿堂</div>
+    <div class="achgrid" id="achGrid"></div>
+  </section>
+
+  <!-- ============ 冒險日誌 ============ -->
+  <section class="panel">
+    <div class="panel-title">📕 冒險日誌</div>
+    <div class="logform">
+      <div class="field"><span>日期</span><input type="date" id="fDate"></div>
+      <div class="field"><span>類型</span>
+        <select id="fType"><option value="buy">買入</option><option value="sell">賣出</option></select>
+      </div>
+      <div class="field"><span>股數</span><input type="number" id="fShares" min="1" step="1" style="width:90px" placeholder="1"></div>
+      <div class="field"><span>單價（円）</span><input type="number" id="fPrice" min="0" step="0.5" style="width:110px" placeholder="7250"></div>
+      <div class="field"><span>備註</span><input type="text" id="fNote" style="width:160px" placeholder="例：跌1.2%中買"></div>
+      <button class="gold" id="fSubmit" onclick="submitTrade()">＋ 記錄冒險</button>
+      <button class="small" id="fCancel" style="display:none" onclick="cancelEdit()">取消編輯</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>日期</th><th>類型</th><th>股數</th><th>單價</th><th>金額</th><th>備註</th><th></th></tr></thead>
+        <tbody id="logBody"></tbody>
+      </table>
+      <div class="empty" id="logEmpty">尚無冒險紀錄。記下你的第一筆，旅程就開始了！</div>
+    </div>
+  </section>
+
+  <!-- ============ 100股達成預估 ============ -->
+  <section class="panel">
+    <div class="panel-title">🔮 100股達成預估</div>
+    <div class="setrow">
+      <span>每股年股息（円）</span>
+      <input type="number" id="divInput" step="10" min="0" style="width:110px" onchange="updateDividend()">
+      <span style="font-size:11.5px">（伊藤忠近年約 200 円／股，可自行調整）</span>
+    </div>
+    <div class="estgrid">
+      <div class="est"><div class="ek">以平均成本推估</div><div class="ev" id="eTotalCost">—</div><div class="en">100 股總投入成本</div></div>
+      <div class="est"><div class="ek">尚需投入</div><div class="ev" id="eRemainCost">—</div><div class="en">剩餘股數 × 平均成本</div></div>
+      <div class="est"><div class="ek">達成後年股息</div><div class="ev" id="eDividend">—</div><div class="en">100 股 × 每股股息</div></div>
+      <div class="est"><div class="ek">預估殖利率</div><div class="ev" id="eYield">—</div><div class="en">年股息 ÷ 推估總成本</div></div>
+    </div>
+    <p class="estnote">
+      ※ 以上為依目前平均成本與設定股息的粗略推估，僅供冒險路上的參考。寶箱要一格一格慢慢裝滿。
+    </p>
+  </section>
+
+  <footer>伊藤忠100股冒險計畫 — 不是看盤軟體，是你的 RPG 角色頁面。⚔️</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= 資料層 ================= */
+const KEY = "itochu100";
+const DEFAULTS = {
+  trades: [],            // {id, date, type:'buy'|'sell', shares, price, note}
+  seeded: false,         // 初始交易資料只灌一次
+  price: null,           // 今日價格
+  priceDate: null,
+  apiKey: "",            // Alpha Vantage API Key（使用者自行設定）
+  monthlyBudget: 30000,
+  dividendPerShare: 200,
+  rules: {
+    small: {drop:0.3, max:1},
+    mid:   {drop:1.2, max:2},
+    big:   {drop:3.0, max:5}
+  },
+  daily: {date:null, price:false, check:false}
+};
+let S = load();
+
+/* 初始交易紀錄：只在「從未初始化過、且日誌完全為空」時灌入一次 */
+const SEED_TRADES = [
+  {date:"2026-05-26", price:1920, shares:10, memo:"初始建倉"},
+  {date:"2026-05-27", price:1918, shares:10, memo:"加碼"},
+  {date:"2026-06-04", price:1850, shares:1,  memo:"NISA"},
+  {date:"2026-06-08", price:1850, shares:1,  memo:"NISA"},
+  {date:"2026-06-08", price:1835, shares:1,  memo:"NISA"},
+  {date:"2026-06-11", price:1830, shares:2,  memo:"NISA成長投資枠"}
+];
+(function seedTrades(){
+  if(S.seeded) return;
+  if(S.trades.length === 0){
+    S.trades = SEED_TRADES.map((t,i)=>({
+      id: Date.now()+i, date:t.date, type:"buy",
+      shares:t.shares, price:t.price, note:t.memo
+    }));
+  }
+  S.seeded = true;
+  save();
+})();
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw) return structuredClone(DEFAULTS);
+    const d = JSON.parse(raw);
+    return Object.assign(structuredClone(DEFAULTS), d, {
+      rules: Object.assign(structuredClone(DEFAULTS.rules), d.rules||{}),
+      daily: Object.assign(structuredClone(DEFAULTS.daily), d.daily||{})
+    });
+  }catch(e){ return structuredClone(DEFAULTS); }
+}
+function save(){ localStorage.setItem(KEY, JSON.stringify(S)); }
+function today(){ return new Date().toISOString().slice(0,10); }
+function yen(n){ return n==null||isNaN(n) ? "—" : "¥" + Math.round(n).toLocaleString("ja-JP"); }
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._tm); t._tm = setTimeout(()=>t.classList.remove("show"), 2600);
+}
+
+/* ================= 計算層 ================= */
+// 移動平均法：買入加權平均，賣出以當時均價沖減
+function portfolio(){
+  const trades = [...S.trades].sort((a,b)=> a.date.localeCompare(b.date) || a.id - b.id);
+  let shares = 0, cost = 0;
+  const ym = today().slice(0,7);
+  let monthSpent = 0;
+  for(const t of trades){
+    if(t.type === "buy"){
+      shares += t.shares;
+      cost   += t.shares * t.price;
+      if(t.date.slice(0,7) === ym) monthSpent += t.shares * t.price;
+    }else{
+      const avg = shares > 0 ? cost/shares : 0;
+      const s = Math.min(t.shares, shares);
+      shares -= s;
+      cost   -= s * avg;
+      if(t.date.slice(0,7) === ym) monthSpent -= s * t.price; // 賣出回補本月預算
+    }
+  }
+  const avg = shares > 0 ? cost/shares : null;
+  return {shares, cost, avg, monthSpent};
+}
+
+const TITLES = [
+  [100,"傳說投資家"],[75,"伊藤忠騎士"],[50,"配息獵人"],[25,"穩健投資家"],[0,"見習股東"]
+];
+function titleOf(sh){ for(const [t,n] of TITLES) if(sh>=t) return n; return "見習股東"; }
+function nextMilestone(sh){
+  for(const m of [25,50,75,100]) if(sh < m) return m;
+  return null;
+}
+
+const ACHIEVEMENTS = [
+  {th:25,  name:"見習股東",   icon:"🥉"},
+  {th:50,  name:"穩健投資家", icon:"🥈"},
+  {th:75,  name:"配息獵人",   icon:"🥇"},
+  {th:100, name:"伊藤忠騎士", icon:"👑"}
+];
+
+/* ================= 畫面渲染 ================= */
+function render(){
+  const p = portfolio();
+  const sh = p.shares;
+  const lv = Math.min(sh, 100);
+
+  // --- Hero / 角色卡 ---
+  document.getElementById("stageLv").textContent = sh >= 100 ? "LV MAX" : "LV " + lv;
+  document.getElementById("cLv").textContent = sh >= 100 ? "MAX" : lv;
+  document.getElementById("cTitle").textContent = titleOf(sh);
+  document.getElementById("cShares").textContent = sh + " 股";
+  const next = nextMilestone(sh);
+  document.getElementById("cNext").textContent = next ? next + " 股" : "已達成 🎉";
+  document.getElementById("cRemain").textContent = next ? (next - sh) + " 股" : "0 股";
+  const pct = Math.min(sh, 100);
+  document.getElementById("cPct").textContent = pct + "%";
+  document.getElementById("expText").textContent = Math.min(sh,100) + " / 100";
+  document.getElementById("expFill").style.width = pct + "%";
+
+  // --- 本月冒險狀況 ---
+  document.getElementById("sPrice").textContent = S.price ? yen(S.price) : "—";
+  document.getElementById("priceDate").textContent = S.priceDate ? `（${S.priceDate} 更新）` : "（尚未更新）";
+  const remainBudget = S.monthlyBudget - p.monthSpent;
+  document.getElementById("sBudget").textContent = yen(remainBudget);
+  document.getElementById("sTotal").textContent = yen(p.cost);
+  document.getElementById("sAvg").textContent = p.avg ? yen(p.avg) : "—";
+  const pnlEl = document.getElementById("sPnl");
+  const pnlPctEl = document.getElementById("sPnlPct");
+  if(S.price && sh > 0 && p.avg != null){
+    const pnl = (S.price - p.avg) * sh;
+    const pp = (S.price - p.avg) / p.avg * 100;
+    pnlEl.textContent = (pnl>=0?"+":"") + yen(pnl).replace("¥", "¥");
+    pnlEl.className = "sv " + (pnl>=0?"pos":"neg");
+    pnlPctEl.textContent = (pp>=0?"+":"") + pp.toFixed(2) + "%";
+    pnlPctEl.className = "sv " + (pp>=0?"pos":"neg");
+  }else{
+    pnlEl.textContent = "—"; pnlEl.className = "sv";
+    pnlPctEl.textContent = "—"; pnlPctEl.className = "sv";
+  }
+
+  // --- 輸入框同步 ---
+  document.getElementById("budgetInput").value = S.monthlyBudget;
+  document.getElementById("divInput").value = S.dividendPerShare;
+  document.getElementById("rSmallDrop").value = S.rules.small.drop;
+  document.getElementById("rSmallMax").value  = S.rules.small.max;
+  document.getElementById("rMidDrop").value   = S.rules.mid.drop;
+  document.getElementById("rMidMax").value    = S.rules.mid.max;
+  document.getElementById("rBigDrop").value   = S.rules.big.drop;
+  document.getElementById("rBigMax").value    = S.rules.big.max;
+
+  renderNpc(p, remainBudget);
+  renderAchievements(sh);
+  renderLog();
+  renderEstimate(p);
+  renderDaily();
+}
+
+/* ---- NPC 建議 ---- */
+function npcHtml(face, who, say, cls){
+  return `<div class="npc ${cls||""}">
+    <div class="face">${face}</div>
+    <div class="bubble"><div class="who">${who}</div><div class="say">${say}</div></div>
+  </div>`;
+}
+function renderNpc(p, remainBudget){
+  const area = document.getElementById("npcArea");
+  const next = nextMilestone(p.shares);
+  const milestoneMsg = next ? `距離下一個里程碑只差 <b>${next - p.shares} 股</b>。` : `你已經是<b>傳說投資家</b>了！`;
+
+  if(p.shares >= 100){
+    area.innerHTML = npcHtml("👑","村長",
+      "你做到了，傳說投資家！100 股的寶箱已經裝滿。接下來，就讓股息替你冒險吧。","buy");
+    return;
+  }
+  if(!S.price){
+    area.innerHTML = npcHtml("🧓","村長",
+      "今天先別急著出發。先到上方更新今日伊藤忠的價格，我才能給你建議。","wait");
+    return;
+  }
+  if(p.avg == null){
+    area.innerHTML = npcHtml("🍄","菇菇商人",
+      `冒險才正要開始呢！記下你的第一筆買入，建立平均成本後，我每天都會給你建議。${milestoneMsg}`,"buy");
+    return;
+  }
+
+  const dropPct = (p.avg - S.price) / p.avg * 100; // 正值 = 比均價便宜
+  const r = S.rules;
+  let tier = null;
+  if(dropPct >= r.big.drop)        tier = {name:"大買", max:r.big.max,  face:"🍄", who:"菇菇商人"};
+  else if(dropPct >= r.mid.drop)   tier = {name:"中買", max:r.mid.max,  face:"🍄", who:"菇菇商人"};
+  else if(dropPct >= r.small.drop) tier = {name:"小買", max:r.small.max,face:"🍄", who:"菇菇商人"};
+
+  let html = "";
+  if(!tier){
+    if(dropPct < 0){
+      html += npcHtml("🐗","肥肥商人",
+        `目前價格 <b>${yen(S.price)}</b>，比你的平均成本高 <b>${Math.abs(dropPct).toFixed(2)}%</b>。建議觀望，把預算留給更好的時機。${milestoneMsg}`,"wait");
+    }else{
+      html += npcHtml("🐗","肥肥商人",
+        `價格 <b>${yen(S.price)}</b> 和你的平均成本差不多（便宜 ${dropPct.toFixed(2)}%），還沒觸發任何買入規則。今天先觀望吧。${milestoneMsg}`,"wait");
+    }
+  }else{
+    const affordable = Math.floor(remainBudget / S.price);
+    const suggest = Math.min(tier.max, Math.max(affordable, 0), next - p.shares > 0 ? 100 - p.shares : tier.max);
+    if(suggest <= 0){
+      html += npcHtml("🧓","村長",
+        `今天價格不錯（比均價便宜 <b>${dropPct.toFixed(2)}%</b>，觸發「${tier.name}」），可惜本月剩餘預算 <b>${yen(remainBudget)}</b> 不夠買 1 股了。下個月再出發吧！`,"wait");
+    }else{
+      html += npcHtml(tier.face, tier.who,
+        `今天價格不錯喔！<b>${yen(S.price)}</b> 比你的平均成本便宜 <b>${dropPct.toFixed(2)}%</b>，觸發「<b>${tier.name}</b>」規則。${milestoneMsg}<br>建議買入 <b>${suggest} 股</b>（約 ${yen(suggest*S.price)}，本月剩餘預算 ${yen(remainBudget)}）。`,"buy");
+    }
+  }
+  area.innerHTML = html;
+}
+
+/* ---- 成就 ---- */
+function renderAchievements(sh){
+  const grid = document.getElementById("achGrid");
+  grid.innerHTML = ACHIEVEMENTS.map(a=>{
+    const prog = Math.min(sh / a.th, 1);
+    const unlocked = sh >= a.th;
+    // 完成度越高徽章越亮、越飽和
+    const style = unlocked ? "" :
+      `filter:grayscale(${(1-prog)*100}%) brightness(${0.45 + prog*0.55}) saturate(${0.3 + prog*0.7});`;
+    return `<div class="ach ${unlocked?"unlocked":"locked"}">
+      <span class="medal" style="${style}">${a.icon}</span>
+      <div class="aname">${a.name}</div>
+      <div class="acond">${a.th} 股成就</div>
+      <div class="achbar"><i style="width:${(prog*100).toFixed(1)}%"></i></div>
+      <span class="astate">${unlocked ? "解鎖済" : Math.floor(prog*100) + "%"}</span>
+    </div>`;
+  }).join("");
+}
+
+/* ---- 冒險日誌 ---- */
+let editingId = null;
+function renderLog(){
+  const body = document.getElementById("logBody");
+  const trades = [...S.trades].sort((a,b)=> b.date.localeCompare(a.date) || b.id - a.id);
+  document.getElementById("logEmpty").style.display = trades.length ? "none" : "block";
+  body.innerHTML = trades.map(t=>`<tr>
+    <td>${t.date}</td>
+    <td><span class="tag ${t.type}">${t.type==="buy"?"買入":"賣出"}</span></td>
+    <td>${t.shares} 股</td>
+    <td>${yen(t.price)}</td>
+    <td>${yen(t.shares*t.price)}</td>
+    <td style="color:var(--text-dim)">${escapeHtml(t.note||"")}</td>
+    <td style="white-space:nowrap">
+      <button class="small" onclick="editTrade(${t.id})">編輯</button>
+      <button class="danger" onclick="deleteTrade(${t.id})">刪除</button>
+    </td>
+  </tr>`).join("");
+}
+function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function submitTrade(){
+  const date = document.getElementById("fDate").value;
+  const type = document.getElementById("fType").value;
+  const shares = parseInt(document.getElementById("fShares").value, 10);
+  const price = parseFloat(document.getElementById("fPrice").value);
+  const note = document.getElementById("fNote").value.trim();
+  if(!date || !shares || shares <= 0 || !(price > 0)){
+    toast("請填寫日期、股數與單價"); return;
+  }
+  if(editingId != null){
+    const t = S.trades.find(t=>t.id===editingId);
+    if(t) Object.assign(t, {date, type, shares, price, note});
+    editingId = null;
+    document.getElementById("fSubmit").textContent = "＋ 記錄冒險";
+    document.getElementById("fCancel").style.display = "none";
+    toast("日誌已更新 ✏️");
+  }else{
+    const before = portfolio().shares;
+    S.trades.push({id: Date.now(), date, type, shares, price, note});
+    const after = trySharesAfter();
+    checkLevelUp(before, after);
+  }
+  clearForm(); save(); render();
+}
+function trySharesAfter(){ return portfolio().shares; }
+function checkLevelUp(before, after){
+  if(after > before){
+    const crossed = [25,50,75,100].find(m => before < m && after >= m);
+    if(crossed){
+      const name = ACHIEVEMENTS.find(a=>a.th===crossed).name;
+      toast(`🎉 成就解鎖：${name}（${crossed}股）！`);
+    }else{
+      toast(`⚔️ LV UP！目前 LV ${Math.min(after,100)}`);
+    }
+  }else{
+    toast("已記錄到冒險日誌 📕");
+  }
+}
+function editTrade(id){
+  const t = S.trades.find(t=>t.id===id);
+  if(!t) return;
+  editingId = id;
+  document.getElementById("fDate").value = t.date;
+  document.getElementById("fType").value = t.type;
+  document.getElementById("fShares").value = t.shares;
+  document.getElementById("fPrice").value = t.price;
+  document.getElementById("fNote").value = t.note||"";
+  document.getElementById("fSubmit").textContent = "✔ 儲存修改";
+  document.getElementById("fCancel").style.display = "inline-block";
+  document.getElementById("fDate").scrollIntoView({behavior:"smooth", block:"center"});
+}
+function cancelEdit(){
+  editingId = null; clearForm();
+  document.getElementById("fSubmit").textContent = "＋ 記錄冒險";
+  document.getElementById("fCancel").style.display = "none";
+}
+function deleteTrade(id){
+  if(!confirm("確定要刪除這筆冒險紀錄嗎？")) return;
+  S.trades = S.trades.filter(t=>t.id!==id);
+  if(editingId === id) cancelEdit();
+  save(); render(); toast("已刪除 🗑️");
+}
+function clearForm(){
+  document.getElementById("fDate").value = today();
+  document.getElementById("fShares").value = "";
+  document.getElementById("fPrice").value = S.price || "";
+  document.getElementById("fNote").value = "";
+}
+
+/* ---- 預估 ---- */
+function renderEstimate(p){
+  const avg = p.avg;
+  const totalEl = document.getElementById("eTotalCost");
+  const remainEl = document.getElementById("eRemainCost");
+  const divEl = document.getElementById("eDividend");
+  const yieldEl = document.getElementById("eYield");
+  const annualDiv = 100 * S.dividendPerShare;
+  divEl.textContent = yen(annualDiv) + " / 年";
+  if(avg != null){
+    const total = avg * 100;
+    totalEl.textContent = yen(total);
+    remainEl.textContent = yen(Math.max(100 - p.shares, 0) * avg);
+    yieldEl.textContent = (annualDiv / total * 100).toFixed(2) + "%";
+  }else{
+    totalEl.textContent = "—"; remainEl.textContent = "—"; yieldEl.textContent = "—";
+  }
+}
+
+/* ---- 每日任務 ---- */
+function renderDaily(){
+  if(S.daily.date !== today()){
+    S.daily = {date: today(), price:false, check:false};
+    save();
+  }
+  const qP = document.getElementById("qPrice");
+  const qC = document.getElementById("qCheck");
+  document.getElementById("qPriceCb").checked = S.daily.price;
+  document.getElementById("qCheckCb").checked = S.daily.check;
+  qP.classList.toggle("done", S.daily.price);
+  qC.classList.toggle("done", S.daily.check);
+}
+document.getElementById("qCheckCb").addEventListener("change", e=>{
+  S.daily.check = e.target.checked; save(); renderDaily();
+  if(e.target.checked) toast("每日任務完成 ✅");
+});
+
+/* ---- 設定更新 ---- */
+function updatePrice(){
+  const v = parseFloat(document.getElementById("priceInput").value);
+  if(!(v > 0)){ toast("請輸入有效價格"); return; }
+  S.price = v; S.priceDate = today();
+  if(S.daily.date === today()) S.daily.price = true;
+  save(); render(); toast("今日價格已更新 🪙");
+}
+function updateBudget(){
+  const v = parseFloat(document.getElementById("budgetInput").value);
+  if(v >= 0){ S.monthlyBudget = v; save(); render(); }
+}
+function updateDividend(){
+  const v = parseFloat(document.getElementById("divInput").value);
+  if(v >= 0){ S.dividendPerShare = v; save(); render(); }
+}
+["rSmallDrop","rSmallMax","rMidDrop","rMidMax","rBigDrop","rBigMax"].forEach(id=>{
+  document.getElementById(id).addEventListener("change", ()=>{
+    S.rules.small.drop = parseFloat(document.getElementById("rSmallDrop").value)||0;
+    S.rules.small.max  = parseInt(document.getElementById("rSmallMax").value,10)||1;
+    S.rules.mid.drop   = parseFloat(document.getElementById("rMidDrop").value)||0;
+    S.rules.mid.max    = parseInt(document.getElementById("rMidMax").value,10)||1;
+    S.rules.big.drop   = parseFloat(document.getElementById("rBigDrop").value)||0;
+    S.rules.big.max    = parseInt(document.getElementById("rBigMax").value,10)||1;
+    save(); render(); toast("冒險規則已更新 📖");
+  });
+});
+
+/* ================= 市場冒險軌跡 ================= */
+const CHART_CACHE_KEY = "itochu100_chart";
+let chartSeries = null;   // [{date:"YYYY-MM-DD", close:Number}] 由舊到新
+let chartSource = null;
+let chartRange = "3m";
+
+function saveApiKey(){
+  S.apiKey = document.getElementById("apiKeyInput").value.trim();
+  save();
+  toast(S.apiKey ? "API Key 已儲存 🔑" : "已清除 API Key");
+  loadChart(true);
+}
+
+function setChartStatus(msg){ document.getElementById("chartStatus").textContent = msg; }
+function setChartMsg(msg){
+  document.getElementById("chartBox").innerHTML = `<div class="chartmsg">${msg}</div>`;
+}
+
+/* --- 來源 1：Alpha Vantage TIME_SERIES_DAILY --- */
+async function fetchAlphaVantage(key){
+  const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=8001.T&outputsize=full&apikey=${encodeURIComponent(key)}`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error("AV HTTP " + res.status);
+  const data = await res.json();
+  const ts = data["Time Series (Daily)"];
+  if(!ts) throw new Error(data["Error Message"] || data["Note"] || data["Information"] || "AV 無資料");
+  return Object.entries(ts)
+    .map(([date,v])=>({date, close: parseFloat(v["4. close"])}))
+    .filter(p=>p.close > 0)
+    .sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+/* --- 來源 2：Stooq historical CSV --- */
+async function fetchStooq(){
+  const res = await fetch("https://stooq.com/q/d/l/?s=8001.jp&i=d");
+  if(!res.ok) throw new Error("Stooq HTTP " + res.status);
+  const csv = await res.text();
+  const lines = csv.trim().split("\n").slice(1); // 去掉表頭 Date,Open,High,Low,Close,Volume
+  const pts = lines.map(l=>{
+    const c = l.split(",");
+    return {date: c[0], close: parseFloat(c[4])};
+  }).filter(p=>/^\d{4}-\d{2}-\d{2}$/.test(p.date) && p.close > 0);
+  if(!pts.length) throw new Error("Stooq 無資料");
+  return pts.sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+/* --- 來源 3：Yahoo Finance 相容端點 --- */
+async function fetchYahoo(){
+  const res = await fetch("https://query1.finance.yahoo.com/v8/finance/chart/8001.T?range=1y&interval=1d");
+  if(!res.ok) throw new Error("Yahoo HTTP " + res.status);
+  const data = await res.json();
+  const r = data.chart && data.chart.result && data.chart.result[0];
+  if(!r || !r.timestamp) throw new Error("Yahoo 無資料");
+  const closes = r.indicators.quote[0].close;
+  const pts = r.timestamp.map((t,i)=>({
+    date: new Date(t*1000).toISOString().slice(0,10),
+    close: closes[i]
+  })).filter(p=>p.close > 0);
+  if(!pts.length) throw new Error("Yahoo 無資料");
+  return pts;
+}
+
+async function loadChart(force){
+  // 當日快取，避免重複消耗 API 額度
+  if(!force){
+    try{
+      const c = JSON.parse(localStorage.getItem(CHART_CACHE_KEY));
+      if(c && c.fetchedAt === today() && Array.isArray(c.series) && c.series.length){
+        chartSeries = c.series; chartSource = c.source;
+        setChartStatus(`行情來源：${c.source}（今日快取）`);
+        drawChart();
+        return;
+      }
+    }catch(e){}
+  }
+  setChartMsg("行情載入中…");
+  setChartStatus(S.apiKey ? "行情載入中…" : "尚未設定行情 API Key，嘗試備援來源…");
+
+  const sources = [];
+  if(S.apiKey) sources.push(["Alpha Vantage", ()=>fetchAlphaVantage(S.apiKey)]);
+  sources.push(["Stooq", fetchStooq], ["Yahoo Finance", fetchYahoo]);
+
+  for(const [name, fn] of sources){
+    try{
+      const series = await fn();
+      chartSeries = series; chartSource = name;
+      localStorage.setItem(CHART_CACHE_KEY, JSON.stringify({fetchedAt: today(), source: name, series}));
+      setChartStatus(`行情來源：${name}（${today()} 更新）` + (S.apiKey ? "" : "｜尚未設定行情 API Key"));
+      drawChart();
+      return;
+    }catch(e){ /* 換下一個來源 */ }
+  }
+  // 全部失敗 → 手動價格模式
+  chartSeries = null; chartSource = null;
+  setChartStatus(S.apiKey ? "行情資料暫時無法取得" : "尚未設定行情 API Key");
+  setChartMsg("⚠️ 行情資料暫時無法取得，已使用手動價格模式。<br>請在上方「本月冒險狀況」手動輸入今日價格，冒險照常進行。");
+}
+
+function drawChart(){
+  const box = document.getElementById("chartBox");
+  if(!chartSeries || chartSeries.length < 2){
+    setChartMsg("行情資料不足，已使用手動價格模式。");
+    return;
+  }
+  const days = {"1m":31, "3m":92, "6m":183, "1y":366}[chartRange] || 92;
+  const lastT = Date.parse(chartSeries[chartSeries.length-1].date);
+  const cutoff = lastT - days*864e5;
+  const pts = chartSeries.filter(p=>Date.parse(p.date) >= cutoff);
+  if(pts.length < 2){ setChartMsg("此區間行情資料不足。"); return; }
+
+  const t0 = Date.parse(pts[0].date), t1 = Date.parse(pts[pts.length-1].date);
+  // 範圍內的買入點（標在實際買入價位）
+  const buys = S.trades
+    .filter(t=>t.type==="buy" && Date.parse(t.date) >= t0 && Date.parse(t.date) <= t1)
+    .sort((a,b)=>a.date.localeCompare(b.date));
+
+  let min = Math.min(...pts.map(p=>p.close), ...buys.map(b=>b.price));
+  let max = Math.max(...pts.map(p=>p.close), ...buys.map(b=>b.price));
+  const pad = (max-min)*0.1 || 1;
+  min -= pad; max += pad;
+
+  const W=720, H=280, L=58, R=18, T=16, B=36;
+  const x = t => L + (t - t0)/(t1 - t0 || 1) * (W-L-R);
+  const y = v => T + (1 - (v - min)/(max - min)) * (H-T-B);
+  const fmtD = d => d.slice(5).replace("-","/");
+
+  // 水平格線與 Y 軸標籤
+  let grid = "";
+  for(let i=0;i<=3;i++){
+    const v = min + (max-min)*i/3;
+    const yy = y(v);
+    grid += `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#c9ab78" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>`;
+    grid += `<text x="${L-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="#7a5c33">¥${Math.round(v).toLocaleString()}</text>`;
+  }
+  // X 軸日期標籤
+  let xlabels = "";
+  for(let i=0;i<=3;i++){
+    const idx = Math.round((pts.length-1)*i/3);
+    const p = pts[idx];
+    xlabels += `<text x="${x(Date.parse(p.date))}" y="${H-12}" text-anchor="middle" font-size="11" fill="#7a5c33">${fmtD(p.date)}</text>`;
+  }
+  // 折線與底部漸層
+  const lineStr = pts.map(p=>`${x(Date.parse(p.date)).toFixed(1)},${y(p.close).toFixed(1)}`).join(" ");
+  const areaStr = `${L},${H-B} ${lineStr} ${W-R},${H-B}`;
+  // 買入點：小寶石（菱形）
+  const gems = buys.map(b=>{
+    const cx = x(Date.parse(b.date)), cy = y(b.price);
+    return `<g>
+      <title>${b.date} 買入 ${b.shares} 股 @¥${b.price.toLocaleString()}${b.note ? "（"+escapeHtml(b.note)+"）" : ""}</title>
+      <path d="M${cx} ${cy-7} L${cx+6} ${cy} L${cx} ${cy+7} L${cx-6} ${cy} Z"
+        fill="#ffd166" stroke="#9c6d14" stroke-width="1.5"/>
+      <path d="M${cx} ${cy-7} L${cx+6} ${cy} L${cx} ${cy} Z" fill="#ffe9b0"/>
+    </g>`;
+  }).join("");
+
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="伊藤忠商事 8001 價格趨勢">
+    <defs>
+      <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3e8e5a" stop-opacity=".30"/>
+        <stop offset="100%" stop-color="#3e8e5a" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    ${grid}
+    <polygon points="${areaStr}" fill="url(#areaG)"/>
+    <polyline points="${lineStr}" fill="none" stroke="#3e8e5a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${gems}
+    ${xlabels}
+    <text x="${W-R}" y="${T+2}" text-anchor="end" font-size="11" fill="#7a5c33">伊藤忠商事 8001${chartSource ? "・"+chartSource : ""}　◆ = 買入點</text>
+  </svg>`;
+}
+
+document.querySelectorAll("#rangeBtns .range").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    chartRange = btn.dataset.range;
+    document.querySelectorAll("#rangeBtns .range").forEach(b=>b.classList.toggle("active", b===btn));
+    drawChart();
+  });
+});
+
+/* ---- 初始化 ---- */
+document.getElementById("fDate").value = today();
+if(S.price) document.getElementById("priceInput").value = S.price;
+document.getElementById("apiKeyInput").value = S.apiKey || "";
+render();
+loadChart(false);
+</script>
+</body>
+</html>
