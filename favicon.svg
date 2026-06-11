@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a8dcff"/>
+      <stop offset=".5" stop-color="#4aa3f0"/>
+      <stop offset="1" stop-color="#1c5fc4"/>
+    </linearGradient>
+  </defs>
+  <!-- 鑽石主體 -->
+  <polygon points="16,7 48,7 60,24 32,58 4,24" fill="url(#g)" stroke="#0d3c8c" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- 切面 -->
+  <polygon points="16,7 24,24 4,24" fill="#c6e8ff" opacity=".6"/>
+  <polygon points="48,7 60,24 40,24" fill="#2a72d4" opacity=".55"/>
+  <polygon points="24,24 32,58 4,24" fill="#2a72d4" opacity=".35"/>
+  <polygon points="40,24 60,24 32,58" fill="#16489c" opacity=".45"/>
+  <polygon points="24,24 40,24 32,58" fill="#8ccbf8" opacity=".55"/>
+  <polygon points="16,7 48,7 40,24 24,24" fill="#9fd4fb" opacity=".4"/>
+  <!-- 高光 -->
+  <circle cx="22" cy="14" r="2.6" fill="#ffffff" opacity=".95"/>
+  <circle cx="28" cy="11" r="1.4" fill="#ffffff" opacity=".8"/>
+</svg>
