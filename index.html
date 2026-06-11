@@ -226,6 +226,7 @@
   </section>
 
   <footer>伊藤忠100股冒險計畫 — 不是看盤軟體，是你的 RPG 角色頁面。⚔️</footer>
+  <div class="scene-credit" id="sceneCredit"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -751,43 +752,43 @@ function drawChart(){
   for(let i=0;i<=3;i++){
     const v = min + (max-min)*i/3;
     const yy = y(v);
-    grid += `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#c9ab78" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>`;
-    grid += `<text x="${L-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="#7a5c33">¥${Math.round(v).toLocaleString()}</text>`;
+    grid += `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#2a3158" stroke-width="2" stroke-dasharray="6 6"/>`;
+    grid += `<text x="${L-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="#9aa6d8">¥${Math.round(v).toLocaleString()}</text>`;
   }
   // X 軸日期標籤
   let xlabels = "";
   for(let i=0;i<=3;i++){
     const idx = Math.round((pts.length-1)*i/3);
     const p = pts[idx];
-    xlabels += `<text x="${x(Date.parse(p.date))}" y="${H-12}" text-anchor="middle" font-size="11" fill="#7a5c33">${fmtD(p.date)}</text>`;
+    xlabels += `<text x="${x(Date.parse(p.date))}" y="${H-12}" text-anchor="middle" font-size="11" fill="#9aa6d8">${fmtD(p.date)}</text>`;
   }
   // 折線與底部漸層
   const lineStr = pts.map(p=>`${x(Date.parse(p.date)).toFixed(1)},${y(p.close).toFixed(1)}`).join(" ");
   const areaStr = `${L},${H-B} ${lineStr} ${W-R},${H-B}`;
-  // 買入點：小寶石（菱形）
+  // 買入點：像素方塊
   const gems = buys.map(b=>{
     const cx = x(Date.parse(b.date)), cy = y(b.price);
     return `<g>
       <title>${b.date} 買入 ${b.shares} 股 @¥${b.price.toLocaleString()}${b.note ? "（"+escapeHtml(b.note)+"）" : ""}</title>
-      <path d="M${cx} ${cy-7} L${cx+6} ${cy} L${cx} ${cy+7} L${cx-6} ${cy} Z"
-        fill="#ffd166" stroke="#9c6d14" stroke-width="1.5"/>
-      <path d="M${cx} ${cy-7} L${cx+6} ${cy} L${cx} ${cy} Z" fill="#ffe9b0"/>
+      <rect x="${(cx-5).toFixed(1)}" y="${(cy-5).toFixed(1)}" width="10" height="10"
+        fill="#ffd34a" stroke="#0a0e23" stroke-width="2" shape-rendering="crispEdges"/>
+      <rect x="${(cx-3).toFixed(1)}" y="${(cy-3).toFixed(1)}" width="3" height="3" fill="#fff2c0"/>
     </g>`;
   }).join("");
 
   box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="伊藤忠商事 8001 價格趨勢">
     <defs>
       <linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#3e8e5a" stop-opacity=".30"/>
-        <stop offset="100%" stop-color="#3e8e5a" stop-opacity="0"/>
+        <stop offset="0%" stop-color="#7ee84a" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#7ee84a" stop-opacity="0"/>
       </linearGradient>
     </defs>
     ${grid}
     <polygon points="${areaStr}" fill="url(#areaG)"/>
-    <polyline points="${lineStr}" fill="none" stroke="#3e8e5a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="${lineStr}" fill="none" stroke="#7ee84a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
     ${gems}
     ${xlabels}
-    <text x="${W-R}" y="${T+2}" text-anchor="end" font-size="11" fill="#7a5c33">伊藤忠商事 8001${chartSource ? "・"+chartSource : ""}　◆ = 買入點</text>
+    <text x="${W-R}" y="${T+2}" text-anchor="end" font-size="11" fill="#9aa6d8">伊藤忠商事 8001${chartSource ? "・"+chartSource : ""}　■ = 買入點</text>
   </svg>`;
 }
 
@@ -798,6 +799,30 @@ document.querySelectorAll("#rangeBtns .range").forEach(btn=>{
     drawChart();
   });
 });
+
+/* ---- 每日場景（日本旅行照片輪換，Unsplash）---- */
+const SCENES = [
+  {id:"1480796927426-f609979314bd", name:"老舖商店街"},
+  {id:"1492571350019-22de08371fd3", name:"箱根 湖中鳥居"},
+  {id:"1545569341-9eb8b30979d9",   name:"京都 暮色八坂塔"},
+  {id:"1493976040374-85c8e12f0c0e", name:"京都 石坂小路"},
+  {id:"1542051841857-5f90071e7989", name:"澀谷 霓虹夜"},
+  {id:"1528360983277-13d401cdc186", name:"紅燈籠小巷"}
+];
+(function setDailyScene(){
+  const d = new Date();
+  const dayOfYear = Math.floor((d - new Date(d.getFullYear(),0,0)) / 864e5);
+  const scene = SCENES[dayOfYear % SCENES.length];
+  const url = `https://images.unsplash.com/photo-${scene.id}?auto=format&fit=crop&w=1920&q=70`;
+  const img = new Image();
+  img.onload = () => {
+    document.body.style.backgroundImage =
+      `linear-gradient(rgba(6,9,26,.84), rgba(6,9,26,.9)), url("${url}")`;
+  };
+  img.src = url;
+  const credit = document.getElementById("sceneCredit");
+  if(credit) credit.textContent = `今日場景：${scene.name}（每日輪換・photo via Unsplash）`;
+})();
 
 /* ---- 初始化 ---- */
 document.getElementById("fDate").value = today();
