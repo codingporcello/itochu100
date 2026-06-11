@@ -109,8 +109,9 @@
       <input type="number" id="priceInput" step="0.5" min="0" placeholder="例：7250" style="width:120px">
       <button class="gold small" onclick="updatePrice()">更新價格</button>
       <span id="priceDate" style="font-size:11.5px"></span>
-      <span style="margin-left:auto">本月預算（円）</span>
-      <input type="number" id="budgetInput" step="1000" min="0" style="width:120px" onchange="updateBudget()">
+      <span style="margin-left:auto">本月預算</span>
+      <span id="budgetDisplay" style="color:var(--yellow);font-size:15px">—</span>
+      <button class="small" onclick="openBudgetPanel()">⚙ 月預算設定</button>
     </div>
     <div class="statgrid">
       <div class="stat"><div class="sk">目前價格</div><div class="sv gold" id="sPrice">—</div></div>
@@ -122,9 +123,42 @@
     </div>
   </section>
 
+  <!-- ============ 月預算設定 ============ -->
+  <section class="panel collapsed" id="budgetPanel">
+    <div class="panel-title collap" onclick="toggleSection('budgetPanel')">💰 月預算設定<span class="caret">▼</span></div>
+    <div class="panel-body">
+      <div class="budget-summary">
+        <div class="bs-label" id="bsLabel">本月剩餘金額</div>
+        <div class="bs-amount" id="bsAmount">—</div>
+        <div class="bs-note" id="bsNote"></div>
+      </div>
+      <div class="logform">
+        <div class="field"><span>月份</span><input type="month" id="bMonth"></div>
+        <div class="field"><span>當月預算（円）</span><input type="number" id="bAmount" min="0" step="1000" placeholder="例：50000" style="width:130px"></div>
+        <div class="field"><span>備註</span><input type="text" id="bNote" placeholder="例：六月投入上限" style="width:170px"></div>
+        <button class="gold" onclick="registerBudget()">登錄預算</button>
+      </div>
+      <div class="setrow" style="margin-bottom:12px">
+        <span>未登錄月份的預設預算（円）</span>
+        <input type="number" id="defaultBudgetInput" step="1000" min="0" style="width:120px" onchange="updateDefaultBudget()">
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>月份</th><th>預算金額</th><th>備註</th><th>操作</th></tr></thead>
+          <tbody id="budgetBody"></tbody>
+        </table>
+        <div class="empty" id="budgetEmpty">尚未登錄任何月份預算，所有月份使用預設預算。</div>
+      </div>
+      <div style="text-align:center;margin-top:16px">
+        <button class="small" onclick="toggleSection('budgetPanel')">▲ 收起月預算設定</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 市場冒險軌跡 ============ -->
-  <section class="panel">
-    <div class="panel-title">📈 市場冒險軌跡</div>
+  <section class="panel" id="chartPanel">
+    <div class="panel-title collap" onclick="toggleSection('chartPanel')">📈 市場冒險軌跡<span class="caret">▼</span></div>
+    <div class="panel-body">
     <p class="chartdesc">記錄伊藤忠價格與你的買入足跡。</p>
     <div class="setrow">
       <span>Alpha Vantage API Key</span>
@@ -143,6 +177,10 @@
       <div class="chartbox" id="chartBox">
         <div class="chartmsg">行情載入中…</div>
       </div>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="small" onclick="toggleSection('chartPanel')">▲ 收起市場冒險軌跡</button>
+    </div>
     </div>
   </section>
 
@@ -240,7 +278,9 @@ const DEFAULTS = {
   price: null,           // 今日價格
   priceDate: null,
   apiKey: "",            // Alpha Vantage API Key（使用者自行設定）
-  monthlyBudget: 30000,
+  monthlyBudget: 30000,  // 未個別設定月份時的預設預算
+  budgets: {},           // 各月預算 {"2026-06": {amount:15000, note:"六月預算"}}
+  ui: {budgetOpen:false, chartOpen:true},
   dividendPerShare: 200,
   rules: {
     small: {drop:0.3, max:1},
@@ -279,7 +319,9 @@ function load(){
     const d = JSON.parse(raw);
     return Object.assign(structuredClone(DEFAULTS), d, {
       rules: Object.assign(structuredClone(DEFAULTS.rules), d.rules||{}),
-      daily: Object.assign(structuredClone(DEFAULTS.daily), d.daily||{})
+      daily: Object.assign(structuredClone(DEFAULTS.daily), d.daily||{}),
+      ui: Object.assign(structuredClone(DEFAULTS.ui), d.ui||{}),
+      budgets: d.budgets || {}
     });
   }catch(e){ return structuredClone(DEFAULTS); }
 }
@@ -354,8 +396,12 @@ function render(){
   // --- 本月冒險狀況 ---
   document.getElementById("sPrice").textContent = S.price ? yen(S.price) : "—";
   document.getElementById("priceDate").textContent = S.priceDate ? `（${S.priceDate} 更新）` : "（尚未更新）";
-  const remainBudget = S.monthlyBudget - p.monthSpent;
+  const ym = today().slice(0,7);
+  const curBudget = budgetOf(ym);
+  const remainBudget = curBudget - p.monthSpent;
   document.getElementById("sBudget").textContent = yen(remainBudget);
+  document.getElementById("budgetDisplay").textContent =
+    yen(curBudget) + (S.budgets[ym] ? "" : "（預設）");
   document.getElementById("sTotal").textContent = yen(p.cost);
   document.getElementById("sAvg").textContent = p.avg ? yen(p.avg) : "—";
   const pnlEl = document.getElementById("sPnl");
@@ -373,7 +419,7 @@ function render(){
   }
 
   // --- 輸入框同步 ---
-  document.getElementById("budgetInput").value = S.monthlyBudget;
+  document.getElementById("defaultBudgetInput").value = S.monthlyBudget;
   document.getElementById("divInput").value = S.dividendPerShare;
   document.getElementById("rSmallDrop").value = S.rules.small.drop;
   document.getElementById("rSmallMax").value  = S.rules.small.max;
@@ -387,6 +433,77 @@ function render(){
   renderLog();
   renderEstimate(p);
   renderDaily();
+  renderBudget(p, ym, curBudget, remainBudget);
+}
+
+/* ---- 月預算設定 ---- */
+function budgetOf(ym){
+  return S.budgets[ym] ? S.budgets[ym].amount : S.monthlyBudget;
+}
+function ymLabel(ym){
+  const [y, m] = ym.split("-");
+  return `${y}年${parseInt(m,10)}月`;
+}
+function renderBudget(p, ym, curBudget, remainBudget){
+  document.getElementById("bsLabel").textContent = `本月剩餘金額（${ymLabel(ym)}）`;
+  const amt = document.getElementById("bsAmount");
+  amt.textContent = yen(remainBudget);
+  amt.className = "bs-amount " + (remainBudget >= 0 ? "pos" : "neg");
+  document.getElementById("bsNote").textContent =
+    `本月預算 ${yen(curBudget)}${S.budgets[ym] ? "" : "（未登錄，使用預設）"}，已買進 ${yen(p.monthSpent)}。`;
+
+  const months = Object.keys(S.budgets).sort().reverse();
+  document.getElementById("budgetEmpty").style.display = months.length ? "none" : "block";
+  document.getElementById("budgetBody").innerHTML = months.map(m=>`<tr>
+    <td>${ymLabel(m)}</td>
+    <td>${yen(S.budgets[m].amount)}</td>
+    <td style="color:var(--text-dim)">${escapeHtml(S.budgets[m].note||"")}</td>
+    <td style="white-space:nowrap">
+      <button class="small" onclick="editBudget('${m}')">編輯</button>
+      <button class="danger" onclick="deleteBudget('${m}')">刪除</button>
+    </td>
+  </tr>`).join("");
+}
+function registerBudget(){
+  const m = document.getElementById("bMonth").value;
+  const amount = parseFloat(document.getElementById("bAmount").value);
+  const note = document.getElementById("bNote").value.trim();
+  if(!m || !(amount >= 0)){ toast("請選擇月份並填寫預算金額"); return; }
+  S.budgets[m] = {amount, note};
+  document.getElementById("bAmount").value = "";
+  document.getElementById("bNote").value = "";
+  save(); render(); toast(`${ymLabel(m)} 預算已登錄 💰`);
+}
+function editBudget(m){
+  document.getElementById("bMonth").value = m;
+  document.getElementById("bAmount").value = S.budgets[m].amount;
+  document.getElementById("bNote").value = S.budgets[m].note || "";
+  document.getElementById("bMonth").scrollIntoView({behavior:"smooth", block:"center"});
+}
+function deleteBudget(m){
+  if(!confirm(`確定要刪除 ${ymLabel(m)} 的預算嗎？該月將改用預設預算。`)) return;
+  delete S.budgets[m];
+  save(); render(); toast("已刪除 🗑️");
+}
+function updateDefaultBudget(){
+  const v = parseFloat(document.getElementById("defaultBudgetInput").value);
+  if(v >= 0){ S.monthlyBudget = v; save(); render(); }
+}
+
+/* ---- 面板收合 ---- */
+const SECTION_KEYS = {budgetPanel:"budgetOpen", chartPanel:"chartOpen"};
+function applySection(id){
+  const open = S.ui[SECTION_KEYS[id]];
+  document.getElementById(id).classList.toggle("collapsed", !open);
+}
+function toggleSection(id){
+  S.ui[SECTION_KEYS[id]] = !S.ui[SECTION_KEYS[id]];
+  save(); applySection(id);
+}
+function openBudgetPanel(){
+  S.ui.budgetOpen = true;
+  save(); applySection("budgetPanel");
+  document.getElementById("budgetPanel").scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 /* ---- NPC 建議 ---- */
@@ -600,10 +717,6 @@ function updatePrice(){
   S.price = v; S.priceDate = today();
   if(S.daily.date === today()) S.daily.price = true;
   save(); render(); toast("今日價格已更新 🪙");
-}
-function updateBudget(){
-  const v = parseFloat(document.getElementById("budgetInput").value);
-  if(v >= 0){ S.monthlyBudget = v; save(); render(); }
 }
 function updateDividend(){
   const v = parseFloat(document.getElementById("divInput").value);
@@ -826,8 +939,11 @@ const SCENES = [
 
 /* ---- 初始化 ---- */
 document.getElementById("fDate").value = today();
+document.getElementById("bMonth").value = today().slice(0,7);
 if(S.price) document.getElementById("priceInput").value = S.price;
 document.getElementById("apiKeyInput").value = S.apiKey || "";
+applySection("budgetPanel");
+applySection("chartPanel");
 render();
 loadChart(false);
 </script>
