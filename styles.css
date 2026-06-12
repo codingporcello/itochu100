@@ -287,6 +287,28 @@ body{
 .npc.buy .who{color:var(--green)}
 .npc.wait{border-color:#c4a558}
 
+/* ===== NPC 掛單建議 ===== */
+.warnbox{
+  background:#3a1414;
+  border:2px solid var(--red);
+  color:#ffc8c8;
+  padding:12px 16px;
+  margin-top:12px;
+  font-size:13.5px;
+  line-height:1.9;
+  letter-spacing:1px;
+}
+.warnbox b{color:var(--yellow)}
+.order-title{
+  font-size:13px;color:var(--yellow);
+  letter-spacing:2px;margin:4px 0 10px;font-weight:400;
+}
+.gold-txt{color:var(--yellow)}
+.neg-txt{color:var(--red)}
+.tag.small-b{background:#1d4a35;color:var(--green);border-color:var(--green)}
+.tag.mid-b{background:#4a3c14;color:var(--yellow);border-color:var(--yellow)}
+.tag.big-b{background:#4a1d1d;color:var(--red);border-color:var(--red)}
+
 /* ===== 規則 ===== */
 .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .rule{
