@@ -8,6 +8,50 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- ============ 密碼鎖（進入畫面）============ -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-title">🔒 冒険者ゲート</div>
+    <p class="gate-msg">合言葉を入力して冒険に出発しよう。<br>請輸入通關密語進入冒險。</p>
+    <input type="password" id="gatePw" placeholder="合言葉 / 通關密語" autocomplete="off" inputmode="text">
+    <button class="gold" id="gateBtn" onclick="tryEnter()">▶ 冒険スタート</button>
+    <p class="gate-err" id="gateErr"></p>
+  </div>
+</div>
+<script>
+  /* 簡易進入鎖。注意：純前端密碼無法真正保護公開原始碼，只能擋一般瀏覽者。 */
+  const GATE_KEY = "itochu100_gate";
+  const GATE_HASH = "minamiseina";
+  function gateUnlock(){
+    document.getElementById("gate").style.display = "none";
+    document.body.style.overflow = "";
+  }
+  function tryEnter(){
+    const v = document.getElementById("gatePw").value;
+    if(v === GATE_HASH){
+      sessionStorage.setItem(GATE_KEY, "1");
+      gateUnlock();
+    }else{
+      const err = document.getElementById("gateErr");
+      err.textContent = "✕ 合言葉が違います / 密語錯誤";
+      const box = document.querySelector(".gate-box");
+      box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+      document.getElementById("gatePw").select();
+    }
+  }
+  if(sessionStorage.getItem(GATE_KEY) === "1"){
+    gateUnlock();
+  }else{
+    document.body.style.overflow = "hidden";
+    document.addEventListener("DOMContentLoaded", ()=>{
+      const pw = document.getElementById("gatePw");
+      pw.focus();
+      pw.addEventListener("keydown", e=>{ if(e.key === "Enter") tryEnter(); });
+    });
+  }
+</script>
+
 <div class="wrap">
 
   <!-- ============ HERO ============ -->

@@ -36,6 +36,33 @@ body{
 }
 .wrap{max-width:1100px;margin:0 auto}
 
+/* ===== 進入密碼鎖 ===== */
+#gate{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  background-color:var(--night);
+  background-image:linear-gradient(rgba(6,9,26,.92), rgba(6,9,26,.96));
+  background-size:cover;background-position:center;
+}
+.gate-box{
+  width:100%;max-width:420px;text-align:center;
+  background:var(--win-solid);
+  border:3px solid var(--frame);
+  box-shadow:inset 0 0 0 3px var(--night), inset 0 0 0 4px #f8f8f866, 0 8px 0 #00000066;
+  padding:32px 26px;
+}
+.gate-title{
+  font-size:20px;color:var(--yellow);letter-spacing:3px;
+  text-shadow:2px 2px 0 #000000cc;margin-bottom:16px;
+}
+.gate-msg{font-size:13px;color:var(--text-dim);line-height:2;letter-spacing:1px;margin-bottom:20px}
+#gatePw{width:100%;text-align:center;font-size:15px;letter-spacing:2px;margin-bottom:16px}
+#gateBtn{width:100%;font-size:15px;padding:12px}
+.gate-err{margin-top:14px;font-size:13px;color:var(--red);letter-spacing:1px;min-height:18px}
+.shake{animation:shake .35s steps(2,end) 2}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
 ::-webkit-scrollbar{width:14px;height:14px}
 ::-webkit-scrollbar-track{background:var(--night)}
 ::-webkit-scrollbar-thumb{background:var(--frame);border:3px solid var(--night)}
