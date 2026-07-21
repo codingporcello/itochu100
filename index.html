@@ -323,6 +323,8 @@
 <script>
 /* ================= 資料層 ================= */
 const KEY = "itochu100";
+const BACKUP_KEY = "itochu100_backup";
+const CHART_CACHE_STORAGE_KEY = "itochu100_chart";
 const DEFAULTS = {
   trades: [],            // {id, date, type:'buy'|'sell', shares, price, note}
   seeded: false,         // 初始交易資料只灌一次
@@ -364,19 +366,59 @@ const SEED_TRADES = [
 })();
 
 function load(){
-  try{
-    const raw = localStorage.getItem(KEY);
-    if(!raw) return structuredClone(DEFAULTS);
-    const d = JSON.parse(raw);
-    return Object.assign(structuredClone(DEFAULTS), d, {
-      rules: Object.assign(structuredClone(DEFAULTS.rules), d.rules||{}),
-      daily: Object.assign(structuredClone(DEFAULTS.daily), d.daily||{}),
-      ui: Object.assign(structuredClone(DEFAULTS.ui), d.ui||{}),
-      budgets: d.budgets || {}
-    });
-  }catch(e){ return structuredClone(DEFAULTS); }
+  const saved = [readStorage(KEY), readStorage(BACKUP_KEY)]
+    .filter(Boolean)
+    .map(raw=>{
+      try{ return JSON.parse(raw); }
+      catch(e){ return null; }
+    })
+    .find(Boolean);
+  if(!saved) return cloneDefaults();
+  return mergeState(saved);
 }
-function save(){ localStorage.setItem(KEY, JSON.stringify(S)); }
+function cloneDefaults(){
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function mergeState(d){
+  const base = cloneDefaults();
+  return Object.assign(base, d, {
+    trades: Array.isArray(d.trades) ? d.trades : [],
+    rules: Object.assign(cloneDefaults().rules, d.rules||{}),
+    daily: Object.assign(cloneDefaults().daily, d.daily||{}),
+    ui: Object.assign(cloneDefaults().ui, d.ui||{}),
+    budgets: d.budgets && typeof d.budgets === "object" ? d.budgets : {}
+  });
+}
+function readStorage(key){
+  try{ return localStorage.getItem(key); }
+  catch(e){ return null; }
+}
+function writeStorage(key, value){
+  localStorage.setItem(key, value);
+}
+function save(){
+  const payload = JSON.stringify(Object.assign({}, S, {savedAt: new Date().toISOString()}));
+  try{
+    writeStorage(KEY, payload);
+    writeStorage(BACKUP_KEY, payload);
+    return true;
+  }catch(e){
+    try{
+      localStorage.removeItem(CHART_CACHE_STORAGE_KEY);
+      writeStorage(KEY, payload);
+      writeStorage(BACKUP_KEY, payload);
+      return true;
+    }catch(err){
+      console.warn("資料保存失敗", err);
+      return false;
+    }
+  }
+}
+function persistOrWarn(){
+  const ok = save();
+  if(!ok) toast("⚠️ 手機瀏覽器暫時無法保存資料，請確認不是無痕模式或站內瀏覽器。");
+  return ok;
+}
 function today(){ return new Date().toISOString().slice(0,10); }
 function yen(n){ return n==null||isNaN(n) ? "—" : "¥" + Math.round(n).toLocaleString("ja-JP"); }
 function toast(msg){
@@ -523,7 +565,7 @@ function registerBudget(){
   S.budgets[m] = {amount, note};
   document.getElementById("bAmount").value = "";
   document.getElementById("bNote").value = "";
-  save(); render(); toast(`${ymLabel(m)} 預算已登錄 💰`);
+  persistOrWarn(); render(); toast(`${ymLabel(m)} 預算已登錄 💰`);
 }
 function editBudget(m){
   document.getElementById("bMonth").value = m;
@@ -534,11 +576,11 @@ function editBudget(m){
 function deleteBudget(m){
   if(!confirm(`確定要刪除 ${ymLabel(m)} 的預算嗎？該月將改用預設預算。`)) return;
   delete S.budgets[m];
-  save(); render(); toast("已刪除 🗑️");
+  persistOrWarn(); render(); toast("已刪除 🗑️");
 }
 function updateDefaultBudget(){
   const v = parseFloat(document.getElementById("defaultBudgetInput").value);
-  if(v >= 0){ S.monthlyBudget = v; save(); render(); }
+  if(v >= 0){ S.monthlyBudget = v; persistOrWarn(); render(); }
 }
 
 /* ---- 面板收合 ---- */
@@ -739,7 +781,7 @@ function submitTrade(){
     const after = trySharesAfter();
     checkLevelUp(before, after);
   }
-  clearForm(); save(); render();
+  clearForm(); persistOrWarn(); render();
 }
 function trySharesAfter(){ return portfolio().shares; }
 function checkLevelUp(before, after){
@@ -777,7 +819,7 @@ function deleteTrade(id){
   if(!confirm("確定要刪除這筆冒險紀錄嗎？")) return;
   S.trades = S.trades.filter(t=>t.id!==id);
   if(editingId === id) cancelEdit();
-  save(); render(); toast("已刪除 🗑️");
+  persistOrWarn(); render(); toast("已刪除 🗑️");
 }
 function clearForm(){
   document.getElementById("fDate").value = today();
@@ -829,12 +871,12 @@ function updatePrice(){
   if(!(v > 0)){ toast("請輸入有效價格"); return; }
   S.price = v; S.priceDate = today();
   if(S.daily.date === today()) S.daily.price = true;
-  save(); render(); toast("今日價格已更新 🪙");
+  persistOrWarn(); render(); toast("今日價格已更新 🪙");
   document.getElementById("npc-advice").scrollIntoView({behavior:"smooth"});
 }
 function updateDividend(){
   const v = parseFloat(document.getElementById("divInput").value);
-  if(v >= 0){ S.dividendPerShare = v; save(); render(); }
+  if(v >= 0){ S.dividendPerShare = v; persistOrWarn(); render(); }
 }
 ["rSmallDrop","rSmallMax","rMidDrop","rMidMax","rBigDrop","rBigMax"].forEach(id=>{
   document.getElementById(id).addEventListener("change", ()=>{
@@ -844,19 +886,19 @@ function updateDividend(){
     S.rules.mid.max    = parseInt(document.getElementById("rMidMax").value,10)||1;
     S.rules.big.drop   = parseFloat(document.getElementById("rBigDrop").value)||0;
     S.rules.big.max    = parseInt(document.getElementById("rBigMax").value,10)||1;
-    save(); render(); toast("冒險規則已更新 📖");
+    persistOrWarn(); render(); toast("冒險規則已更新 📖");
   });
 });
 
 /* ================= 市場冒險軌跡 ================= */
-const CHART_CACHE_KEY = "itochu100_chart";
+const CHART_CACHE_KEY = CHART_CACHE_STORAGE_KEY;
 let chartSeries = null;   // [{date:"YYYY-MM-DD", close:Number}] 由舊到新
 let chartSource = null;
 let chartRange = "3m";
 
 function saveApiKey(){
   S.apiKey = document.getElementById("apiKeyInput").value.trim();
-  save();
+  persistOrWarn();
   toast(S.apiKey ? "API Key 已儲存 🔑" : "已清除 API Key");
   loadChart(true);
 }
@@ -934,7 +976,11 @@ async function loadChart(force){
     try{
       const series = await fn();
       chartSeries = series; chartSource = name;
-      localStorage.setItem(CHART_CACHE_KEY, JSON.stringify({fetchedAt: today(), source: name, series}));
+      try{
+        localStorage.setItem(CHART_CACHE_KEY, JSON.stringify({fetchedAt: today(), source: name, series}));
+      }catch(e){
+        console.warn("行情快取保存失敗，主資料不受影響", e);
+      }
       setChartStatus(`行情來源：${name}（${today()} 更新）` + (S.apiKey ? "" : "｜尚未設定行情 API Key"));
       drawChart();
       return;
@@ -1061,6 +1107,10 @@ applySection("chartPanel");
 applySection("rulesPanel");
 render();
 loadChart(false);
+window.addEventListener("pagehide", ()=>save());
+document.addEventListener("visibilitychange", ()=>{
+  if(document.visibilityState === "hidden") save();
+});
 </script>
 </body>
 </html>
